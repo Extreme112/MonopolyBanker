@@ -1,0 +1,50 @@
+[
+	{
+		"name":"Mediterranean Avenue",
+		"price":60,
+		"rent":2,
+		"rent_monopoly":4,
+		"1_house":10,
+		"2_house":30,
+		"3_house":90,
+		"4_house":160,
+		"hotel":250
+		"mortgage":30
+	},
+	{
+		"name":"Baltic Avenue",
+		"price":60,
+		"rent":4,
+		"rent_monopoly":8,
+		"1_house":20,
+		"2_house":60,
+		"3_house":180,
+		"4_house":320,
+		"hotel":450
+		"mortgage":30
+	},
+	{
+		"name":"Oriental Avenue",
+		"price":100,
+		"rent":6,
+		"rent_monopoly":121,
+		"1_house":30,
+		"2_house":90,
+		"3_house":270,
+		"4_house":400,
+		"hotel":550
+		"mortgage":50
+	},
+	{
+		"name":"Vermont Avenue",
+		"price":100,
+		"rent":6,
+		"rent_monopoly":121,
+		"1_house":30,
+		"2_house":90,
+		"3_house":270,
+		"4_house":400,
+		"hotel":550
+		"mortgage":50
+	}
+]
