@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     public static final int CHLD_REQ1 = 1;
     Globals g;
+    int startingCash;
 
     //button references
     TextView but_cash;
@@ -17,9 +18,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        g = (Globals)getApplication();
+        startingCash = g.getStartingCash();
+
 
         but_cash = (TextView) findViewById(R.id.but_cash);
-        but_cash.setText(String.valueOf(0));
+        but_cash.setText(String.valueOf(startingCash));
     }
 
     @Override

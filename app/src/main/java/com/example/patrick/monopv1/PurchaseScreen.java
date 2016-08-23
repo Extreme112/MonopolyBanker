@@ -21,6 +21,9 @@ public class PurchaseScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final Bundle passedData = getIntent().getExtras();
+
+
         //setContentView(R.layout.activity_purchase_screen);
         g = (Globals)getApplication();
         //assign
@@ -41,7 +44,8 @@ public class PurchaseScreen extends AppCompatActivity {
 
                 button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        int valueToPass = getPurchasePrice(button.getText().toString());
+                        int newCash = passedData.getInt("currentCash");
+                        int valueToPass = newCash - getPurchasePrice(button.getText().toString());
                         Log.d("myTag",String.valueOf(valueToPass));
 
                         Intent i = new Intent();

@@ -36,6 +36,7 @@ public class SelectActionScreen extends AppCompatActivity {
 
     public void but_purchase(View v){
         Intent i = new Intent(this,PurchaseScreen.class);
+        i.putExtra("currentCash",Integer.parseInt(text_cash.getText().toString()));
         startActivityForResult(i,CHLD_REQ2);
     }
 

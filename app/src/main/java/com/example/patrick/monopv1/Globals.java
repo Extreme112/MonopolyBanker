@@ -16,6 +16,7 @@ import java.util.ArrayList;
  */
 public class Globals extends Application{
     private ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
+    private int startingCash = 1500;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -71,4 +72,11 @@ public class Globals extends Application{
         return properties;
     }
 
+    public int getStartingCash(){
+        return startingCash;
+    }
+
+    public void setStartingCash(int startCash){
+        startingCash = startCash;
+    }
 }
