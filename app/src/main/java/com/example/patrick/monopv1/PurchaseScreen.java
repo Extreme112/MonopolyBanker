@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ public class PurchaseScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         final Bundle passedData = getIntent().getExtras();
-
 
         //setContentView(R.layout.activity_purchase_screen);
         g = (Globals)getApplication();
@@ -58,6 +58,10 @@ public class PurchaseScreen extends AppCompatActivity {
                 linearLayout.addView(button);
             }
         }
+
+        ScrollView scrollView = new ScrollView(this);
+        setContentView(scrollView);
+        scrollView.addView(linearLayout);
     }
 
     public int getPurchasePrice(String s){

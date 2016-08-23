@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
         g = (Globals)getApplication();
         startingCash = g.getStartingCash();
 
-
         but_cash = (TextView) findViewById(R.id.but_cash);
         but_cash.setText(String.valueOf(startingCash));
     }

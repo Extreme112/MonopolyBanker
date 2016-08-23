@@ -10,7 +10,8 @@
 			"3_house":90,
 			"4_house":160,
 			"hotel":250,
-			"mortgage":30
+			"mortgage":30,
+			"color":"dark purple"
 		},
 		{
 			"name":"Baltic Avenue",
@@ -22,19 +23,21 @@
 			"3_house":180,
 			"4_house":320,
 			"hotel":450,
-			"mortgage":30
+			"mortgage":30,
+			"color":"dark purple"
 		},
 		{
 			"name":"Oriental Avenue",
 			"price":100,
 			"rent":6,
-			"rent_monopoly":121,
+			"rent_monopoly":12,
 			"1_house":30,
 			"2_house":90,
 			"3_house":270,
 			"4_house":400,
 			"hotel":550,
-			"mortgage":50
+			"mortgage":50,
+			"color":"light blue"
 		},
 		{
 			"name":"Vermont Avenue",
@@ -46,7 +49,178 @@
 			"3_house":270,
 			"4_house":400,
 			"hotel":550,
-			"mortgage":50
+			"mortgage":50,
+			"color":"light blue"
+		},
+		{
+			"name":"Connecticut Avenue",
+			"price":120,
+			"rent":8,
+			"rent_monopoly":16,
+			"1_house":40,
+			"2_house":100,
+			"3_house":300,
+			"4_house":450,
+			"hotel":600,
+			"mortgage":60,
+			"color":"light blue"
+		},
+		{
+			"name":"St. Charles Place",
+			"price":140,
+			"rent":10,
+			"rent_monopoly":20,
+			"1_house":50,
+			"2_house":150,
+			"3_house":450,
+			"4_house":625,
+			"hotel":750,
+			"mortgage":70,
+			"color":"pink"
+		},
+		{
+			"name":"States Avenue",
+			"price":140,
+			"rent":10,
+			"rent_monopoly":20,
+			"1_house":50,
+			"2_house":150,
+			"3_house":450,
+			"4_house":625,
+			"hotel":750,
+			"mortgage":70,
+			"color":"pink"
+		},
+		{
+			"name":"Virginia Avenue",
+			"price":160,
+			"rent":12,
+			"rent_monopoly":24,
+			"1_house":60,
+			"2_house":180,
+			"3_house":500,
+			"4_house":700,
+			"hotel":900,
+			"mortgage":80,
+			"color":"pink"
+		},
+		{
+			"name":"St. James Place",
+			"price":180,
+			"rent":14,
+			"rent_monopoly":28,
+			"1_house":70,
+			"2_house":200,
+			"3_house":550,
+			"4_house":750,
+			"hotel":950,
+			"mortgage":90,
+			"color":"orange"
+		},
+		{
+			"name":"Tennessee Avenue",
+			"price":180,
+			"rent":14,
+			"rent_monopoly":28,
+			"1_house":70,
+			"2_house":200,
+			"3_house":550,
+			"4_house":750,
+			"hotel":950,
+			"mortgage":90,
+			"color":"orange"
+		},
+		{
+			"name":"New York Avenue",
+			"price":200,
+			"rent":16,
+			"rent_monopoly":32,
+			"1_house":80,
+			"2_house":220,
+			"3_house":600,
+			"4_house":800,
+			"hotel":1000,
+			"mortgage":100,
+			"color":"orange"
+		},
+		{
+			"name":"Kentucky Avenue",
+			"price":220,
+			"rent":18,
+			"rent_monopoly":36,
+			"1_house":90,
+			"2_house":250,
+			"3_house":700,
+			"4_house":875,
+			"hotel":1050,
+			"mortgage":110,
+			"color":"red"
+		},
+		{
+			"name":"Indiana Avenue",
+			"price":220,
+			"rent":18,
+			"rent_monopoly":36,
+			"1_house":90,
+			"2_house":250,
+			"3_house":700,
+			"4_house":875,
+			"hotel":1050,
+			"mortgage":110,
+			"color":"red"
+		},
+		{
+			"name":"Illinois Avenue",
+			"price":240,
+			"rent":20,
+			"rent_monopoly":40,
+			"1_house":100,
+			"2_house":300,
+			"3_house":750,
+			"4_house":925,
+			"hotel":1100,
+			"mortgage":120,
+			"color":"red"
+		},
+		{
+			"name":"Atlantic Avenue",
+			"price":260,
+			"rent":22,
+			"rent_monopoly":44,
+			"1_house":110,
+			"2_house":330,
+			"3_house":800,
+			"4_house":975,
+			"hotel":1150,
+			"mortgage":130,
+			"color":"yellow"
+		},
+		{
+			"name":"Ventor Avenue",
+			"price":260,
+			"rent":22,
+			"rent_monopoly":44,
+			"1_house":110,
+			"2_house":330,
+			"3_house":800,
+			"4_house":975,
+			"hotel":1150,
+			"mortgage":130,
+			"color":"yellow"
+		},
+		{
+			"name":"Marvin Gardens",
+			"price":280,
+			"rent":24,
+			"rent_monopoly":48,
+			"1_house":120,
+			"2_house":360,
+			"3_house":850,
+			"4_house":1025,
+			"hotel":1200,
+			"mortgage":140,
+			"color":"yellow"
 		}
+
 	]
 }
