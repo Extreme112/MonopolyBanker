@@ -33,8 +33,9 @@ public class Globals extends Application{
                 int tempPrice = tempObj.getInt("price");
                 int tempRent = tempObj.getInt("rent");
                 int tempMortgage = tempObj.getInt("mortgage");
+                String tempColor = tempObj.getString("color");
 
-                PropertyCard tempPropertyCared = new PropertyCard(tempName,tempPrice,tempRent,tempMortgage);
+                PropertyCard tempPropertyCared = new PropertyCard(tempName,tempPrice,tempRent,tempMortgage,tempColor);
                 properties.add(tempPropertyCared);
 
                 Log.d("Details-->",tempObj.getString("name"));

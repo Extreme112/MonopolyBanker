@@ -13,9 +13,10 @@ public class PropertyCard {
     private int house_4;
     private int hotel;
     private int mortgage;
+    private String color;
 
     public PropertyCard(String init_propertyName, int init_price, int init_rentCost,int init_house_1Cost, int init_house_2Cost,
-                        int init_house_3Cost, int init_house_4Cost, int init_hotelCost, int init_mortgage){
+                        int init_house_3Cost, int init_house_4Cost, int init_hotelCost, int init_mortgage, String init_color){
         name = init_propertyName;
         price = init_price;
         rent = init_rentCost;
@@ -25,13 +26,15 @@ public class PropertyCard {
         house_4 = init_house_4Cost;
         hotel = init_hotelCost;
         mortgage = init_mortgage;
+        color = init_color;
     }
 
-    public PropertyCard(String init_propertyName, int init_price, int init_rentCost, int init_mortgage){
+    public PropertyCard(String init_propertyName, int init_price, int init_rentCost, int init_mortgage, String init_color){
         name = init_propertyName;
         price = init_price;
         rent = init_rentCost;
         mortgage = init_mortgage;
+        color = init_color;
     }
 
     public PropertyCard(){
@@ -72,5 +75,9 @@ public class PropertyCard {
 
     public int getPrice(){
         return price;
+    }
+
+    public String getColor(){
+        return color;
     }
 }
