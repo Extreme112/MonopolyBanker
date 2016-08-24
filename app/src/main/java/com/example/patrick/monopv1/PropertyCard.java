@@ -14,6 +14,7 @@ public class PropertyCard {
     private int hotel;
     private int mortgage;
     private String color;
+    private String owner = "none";
 
     public PropertyCard(String init_propertyName, int init_price, int init_rentCost,int init_house_1Cost, int init_house_2Cost,
                         int init_house_3Cost, int init_house_4Cost, int init_hotelCost, int init_mortgage, String init_color){
@@ -35,10 +36,6 @@ public class PropertyCard {
         rent = init_rentCost;
         mortgage = init_mortgage;
         color = init_color;
-    }
-
-    public PropertyCard(){
-
     }
 
     public int getRent(){
@@ -79,5 +76,14 @@ public class PropertyCard {
 
     public String getColor(){
         return color;
+    }
+
+    public String getOwner(){
+        return owner;
+    }
+
+    public boolean setOwner(String fragmentTag){
+        owner = fragmentTag;
+        return true;
     }
 }

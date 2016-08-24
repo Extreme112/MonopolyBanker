@@ -24,23 +24,34 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager manager = getFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        //Add first fragment
-        FrameLayout frameLayout1 = new FrameLayout(this);
-        frameLayout1.setId(View.generateViewId());
+        for (int i = 1; i < 5;i++){
+            FrameLayout frameLayout1 = new FrameLayout(this);
+            frameLayout1.setId(View.generateViewId());
 
-        PlayerFragment frag1 = new PlayerFragment();
-        transaction.add(frameLayout1.getId(),frag1,"Player1");
+            PlayerFragment frag1 = new PlayerFragment();
+            transaction.add(frameLayout1.getId(),frag1,"P" + i);
 
-        linearLayout.addView(frameLayout1);
-        //add second fragment
-        FrameLayout frameLayout2 = new FrameLayout(this);
-        frameLayout2.setId(View.generateViewId());
+            linearLayout.addView(frameLayout1);
+        }
 
-        PlayerFragment frag2 = new PlayerFragment();
-        transaction.add(frameLayout2.getId(),frag2,"Player2");
-
-        linearLayout.addView(frameLayout2);
-
+//        //Add first fragment
+//        FrameLayout frameLayout1 = new FrameLayout(this);
+//        frameLayout1.setId(View.generateViewId());
+//
+//        PlayerFragment frag1 = new PlayerFragment();
+//        transaction.add(frameLayout1.getId(),frag1,"Player1");
+//
+//        linearLayout.addView(frameLayout1);
+//        //end of first fragment
+//        //add second fragment
+//        FrameLayout frameLayout2 = new FrameLayout(this);
+//        frameLayout2.setId(View.generateViewId());
+//
+//        PlayerFragment frag2 = new PlayerFragment();
+//        transaction.add(frameLayout2.getId(),frag2,"Player2");
+//
+//        linearLayout.addView(frameLayout2);
+//        //end of second fragment
         transaction.commit();
     }
 

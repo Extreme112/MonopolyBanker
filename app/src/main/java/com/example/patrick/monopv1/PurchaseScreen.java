@@ -19,16 +19,18 @@ public class PurchaseScreen extends AppCompatActivity {
     Globals g;
     ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
     ArrayList<Button> buttons = new ArrayList<Button>();
+    String fragmentTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final Bundle passedData = getIntent().getExtras();
-
+        fragmentTag = passedData.getString("fragmentTag");
+        Log.d("Properties","Fragment tag -->" + fragmentTag);
         //setContentView(R.layout.activity_purchase_screen);
         g = (Globals)getApplication();
-        //assign
+        //obtain a copy of properties from globals
         properties = g.getProperties();
 
         //Change Layout
@@ -40,27 +42,32 @@ public class PurchaseScreen extends AppCompatActivity {
             Log.d("myTag","properties(PurchaseScreen) is null");
         } else {
             for(PropertyCard p : properties){
-                final Button button = new Button(this);
-                //customize button
-                button.setText(p.getName());
-                button.setTextAppearance(R.style.fontForNotificationLandingPage);
-                setBackgroundColor(button,p);
-                //Set event handler
-                button.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        int newCash = passedData.getInt("currentCash");
-                        int valueToPass = newCash - getPurchasePrice(button.getText().toString());
-                        Log.d("myTag",String.valueOf(valueToPass));
+                Log.d("Properties",p.getName() + p.getOwner());
+                if(p.getOwner().equals("none")){
+                    final Button button = new Button(this);
+                    //customize button
+                    button.setText(p.getName());
+                    button.setTextAppearance(R.style.fontForNotificationLandingPage);
+                    setBackgroundColor(button,p);
+                    //Set event handler
+                    button.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            int newCash = passedData.getInt("currentCash");
+                            int valueToPass = newCash - getPurchasePrice(button.getText().toString());
+                            setOwner(button.getText().toString(),fragmentTag);
+//                            Log.d("myTag",String.valueOf(valueToPass));
 
-                        Intent i = new Intent();
-                        i.putExtra("price",valueToPass);
-                        setResult(RESULT_OK,i);
-                        finish();
-                    }
-                });
-                buttons.add(button);
-                //add button to view
-                linearLayout.addView(button);
+                            Intent i = new Intent();
+                            i.putExtra("price",valueToPass);
+                            setResult(RESULT_OK,i);
+                            finish();
+                        }
+                    });
+                    buttons.add(button);
+                    //add button to view
+                    linearLayout.addView(button);
+                }
+
             }
         }
 
@@ -76,6 +83,15 @@ public class PurchaseScreen extends AppCompatActivity {
             }
         }
         return 0;
+    }
+
+    public void setOwner(String s, String fragmentTag){
+        for(PropertyCard p: properties){
+            if(p.getName().equals(s)){
+                p.setOwner(fragmentTag);
+                g.setProperties(properties);
+            }
+        }
     }
 
     public void setBackgroundColor(Button b, PropertyCard p){

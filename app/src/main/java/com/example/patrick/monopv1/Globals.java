@@ -72,6 +72,10 @@ public class Globals extends Application{
     public ArrayList<PropertyCard> getProperties(){
         return properties;
     }
+    public boolean setProperties(ArrayList<PropertyCard> p){
+        properties = p;
+        return true;
+    }
 
     public int getStartingCash(){
         return startingCash;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ public class PlayerFragment extends Fragment {
         g = (Globals) getActivity().getApplication();
         startingCash = g.getStartingCash();
 
+        Log.d("FragmentTag",getTag());
+
         but_cash = (TextView) view.findViewById(R.id.but_cash);
         but_cash.setText(String.valueOf(startingCash));
 
@@ -36,7 +39,6 @@ public class PlayerFragment extends Fragment {
         });
         return view;
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -52,6 +54,7 @@ public class PlayerFragment extends Fragment {
         //pass integer via i.putExtras
         int currentCashNumber = Integer.parseInt(but_cash.getText().toString());
         i.putExtra("mainActivityCash",currentCashNumber);
+        i.putExtra("fragmentTag",getTag());
         startActivityForResult(i,CHLD_REQ1);
     }
 }

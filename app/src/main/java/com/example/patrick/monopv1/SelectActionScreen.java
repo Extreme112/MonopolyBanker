@@ -10,6 +10,7 @@ import android.widget.TextView;
 public class SelectActionScreen extends AppCompatActivity {
     public static final int CHLD_REQ2 = 2;
     TextView text_cash;
+    String fragmentTag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class SelectActionScreen extends AppCompatActivity {
 
         Bundle passedData = getIntent().getExtras();
         int passedCashNumber = passedData.getInt("mainActivityCash");
+        fragmentTag = passedData.getString("fragmentTag");
 
         text_cash = (TextView) findViewById(R.id.text_cash);
         text_cash.setText(String.valueOf(passedCashNumber));
@@ -26,9 +28,10 @@ public class SelectActionScreen extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == CHLD_REQ2 && resultCode == RESULT_OK){
-            //recieves int from putchase screen
+            //receives int from purchase screen
             Bundle recievedData = data.getExtras();
             int passedPrice = recievedData.getInt("price");
+
             text_cash.setText(String.valueOf(passedPrice));
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -37,6 +40,7 @@ public class SelectActionScreen extends AppCompatActivity {
     public void but_purchase(View v){
         Intent i = new Intent(this,PurchaseScreen.class);
         i.putExtra("currentCash",Integer.parseInt(text_cash.getText().toString()));
+        i.putExtra("fragmentTag",fragmentTag);
         startActivityForResult(i,CHLD_REQ2);
     }
 
