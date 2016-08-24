@@ -73,5 +73,4 @@ public class PurchaseScreen extends AppCompatActivity {
         return 0;
     }
 
-
 }

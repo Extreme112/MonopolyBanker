@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SelectActionScreen" />
-        <activity android:name=".PurchaseScreen"></activity>
+        <activity android:name=".PurchaseScreen" />
+        <activity android:name=".PlayerFragment"></activity>
     </application>
 
 </manifest>

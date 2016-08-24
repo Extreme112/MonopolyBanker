@@ -1,47 +1,47 @@
 package com.example.patrick.monopv1;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static final int CHLD_REQ1 = 1;
-    Globals g;
-    int startingCash;
-
-    //button references
-    TextView but_cash;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        g = (Globals)getApplication();
-        startingCash = g.getStartingCash();
 
-        but_cash = (TextView) findViewById(R.id.but_cash);
-        but_cash.setText(String.valueOf(startingCash));
-    }
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.lin_Layout);
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == CHLD_REQ1 && resultCode == RESULT_OK){
-            Bundle recievedData = data.getExtras();
-            //recievedData.getInt("newNumber");
-            but_cash.setText(String.valueOf(recievedData.getInt("newNumber")));
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
 
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+        //Add first fragment
+        FrameLayout frameLayout1 = new FrameLayout(this);
+        frameLayout1.setId(View.generateViewId());
 
-    public void nameClick(View v){
-        Intent i = new Intent(this,SelectActionScreen.class);
-        //pass integer via i.putExtras
-        int currentCashNumber = Integer.parseInt(but_cash.getText().toString());
-        i.putExtra("mainActivityCash",currentCashNumber);
-        startActivityForResult(i,CHLD_REQ1);
+        PlayerFragment frag1 = new PlayerFragment();
+        transaction.add(frameLayout1.getId(),frag1,"Player1");
+
+        linearLayout.addView(frameLayout1);
+        //add second fragment
+        FrameLayout frameLayout2 = new FrameLayout(this);
+        frameLayout2.setId(View.generateViewId());
+
+        PlayerFragment frag2 = new PlayerFragment();
+        transaction.add(frameLayout2.getId(),frag2,"Player2");
+
+        linearLayout.addView(frameLayout2);
+
+        transaction.commit();
     }
 
 
