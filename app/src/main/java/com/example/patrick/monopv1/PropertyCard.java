@@ -86,4 +86,9 @@ public class PropertyCard {
         owner = fragmentTag;
         return true;
     }
+
+    public boolean setOwnerToNone(){
+        owner = "none";
+        return true;
+    }
 }

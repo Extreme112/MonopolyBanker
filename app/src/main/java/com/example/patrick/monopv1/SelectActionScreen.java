@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class SelectActionScreen extends AppCompatActivity {
     public static final int CHLD_REQ2 = 2;
+    public static final int CHLD_REQ3 = 3;
     TextView text_cash;
     String fragmentTag;
 
@@ -39,6 +40,13 @@ public class SelectActionScreen extends AppCompatActivity {
 
     public void but_purchase(View v){
         Intent i = new Intent(this,PurchaseScreen.class);
+        i.putExtra("currentCash",Integer.parseInt(text_cash.getText().toString()));
+        i.putExtra("fragmentTag",fragmentTag);
+        startActivityForResult(i,CHLD_REQ2);
+    }
+
+    public void but_mortgage(View v){
+        Intent i = new Intent(this,MortgageScreen.class);
         i.putExtra("currentCash",Integer.parseInt(text_cash.getText().toString()));
         i.putExtra("fragmentTag",fragmentTag);
         startActivityForResult(i,CHLD_REQ2);

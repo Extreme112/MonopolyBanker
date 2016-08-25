@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".SelectActionScreen" />
         <activity android:name=".PurchaseScreen" />
-        <activity android:name=".PlayerFragment"></activity>
+        <activity android:name=".PlayerFragment" />
+        <activity android:name=".MortgageScreen"></activity>
     </application>
 
 </manifest>
