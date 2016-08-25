@@ -220,7 +220,73 @@
 			"hotel":1200,
 			"mortgage":140,
 			"color":"yellow"
+		},
+		{
+			"name":"Pacific Avenue",
+			"price":300,
+			"rent":26,
+			"rent_monopoly":52,
+			"1_house":130,
+			"2_house":390,
+			"3_house":900,
+			"4_house":1100,
+			"hotel":1275,
+			"mortgage":150,
+			"color":"green"
+		},
+		{
+			"name":"North Carolina Avenue",
+			"price":300,
+			"rent":26,
+			"rent_monopoly":52,
+			"1_house":130,
+			"2_house":390,
+			"3_house":900,
+			"4_house":1100,
+			"hotel":1275,
+			"mortgage":150,
+			"color":"green"
+		},
+		{
+			"name":"Pennsylvania Avenue",
+			"price":320,
+			"rent":28,
+			"rent_monopoly":56,
+			"1_house":150,
+			"2_house":450,
+			"3_house":1000,
+			"4_house":1200,
+			"hotel":1400,
+			"mortgage":160,
+			"color":"green"
+		},
+		{
+			"name":"Park Place",
+			"price":375,
+			"rent":35,
+			"rent_monopoly":70,
+			"1_house":175,
+			"2_house":500,
+			"3_house":1100,
+			"4_house":1300,
+			"hotel":1500,
+			"mortgage":175,
+			"color":"dark blue"
+		},
+		{
+			"name":"Boardwalk",
+			"price":400,
+			"rent":50,
+			"rent_monopoly":100,
+			"1_house":200,
+			"2_house":600,
+			"3_house":1400,
+			"4_house":1700,
+			"hotel":2000,
+			"mortgage":200,
+			"color":"dark blue"
 		}
+
 
 	]
 }

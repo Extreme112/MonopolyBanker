@@ -1,5 +1,7 @@
 package com.example.patrick.monopv1;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -52,15 +54,52 @@ public class PurchaseScreen extends AppCompatActivity {
                     //Set event handler
                     button.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            int newCash = passedData.getInt("currentCash");
-                            int valueToPass = newCash - getPurchasePrice(button.getText().toString());
-                            setOwner(button.getText().toString(),fragmentTag);
+                            if(getPurchasePrice(button.getText().toString()) > passedData.getInt("currentCash")){
+                                //Create Yes/No Dialogue Box
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(PurchaseScreen.this);
+                                builder1.setMessage("Not enough cash available.");
+                                builder1.setCancelable(true);
+                                builder1.setPositiveButton(
+                                        "OK",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+                            } else {
+                                //Create Yes/No Dialogue Box
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(PurchaseScreen.this);
+                                builder1.setMessage("Purchase " + button.getText().toString() +" for $" + getPurchasePrice(button.getText().toString()) +"?");
+                                builder1.setCancelable(true);
+                                builder1.setPositiveButton(
+                                        "Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                int newCash = passedData.getInt("currentCash");
+                                                int valueToPass = newCash - getPurchasePrice(button.getText().toString());
+                                                setOwner(button.getText().toString(),fragmentTag);
 //                            Log.d("myTag",String.valueOf(valueToPass));
 
-                            Intent i = new Intent();
-                            i.putExtra("price",valueToPass);
-                            setResult(RESULT_OK,i);
-                            finish();
+                                                Intent i = new Intent();
+                                                i.putExtra("price",valueToPass);
+                                                setResult(RESULT_OK,i);
+                                                finish();
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                builder1.setNegativeButton(
+                                        "No",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+                            }
                         }
                     });
                     buttons.add(button);
@@ -101,19 +140,26 @@ public class PurchaseScreen extends AppCompatActivity {
                 b.getBackground().setColorFilter(Color.parseColor("#9575CD"), PorterDuff.Mode.DARKEN);
                 return;
             case "light blue":
-                b.getBackground().setColorFilter(Color.parseColor("#29B6F6"), PorterDuff.Mode.DARKEN);
+                b.getBackground().setColorFilter(Color.parseColor("#80DEEA"), PorterDuff.Mode.DARKEN);
                 return;
             case "pink":
                 b.getBackground().setColorFilter(Color.parseColor("#F06292"), PorterDuff.Mode.DARKEN);
                 return;
             case "orange":
-                b.getBackground().setColorFilter(Color.parseColor("#FF7043"), PorterDuff.Mode.DARKEN);
+                b.getBackground().setColorFilter(Color.parseColor("#FFB74D"), PorterDuff.Mode.DARKEN);
                 return;
             case "yellow":
                 b.getBackground().setColorFilter(Color.parseColor("#FDD835"), PorterDuff.Mode.DARKEN);
                 return;
             case "red":
-                b.getBackground().setColorFilter(Color.parseColor("#ef5350"), PorterDuff.Mode.DARKEN);
+                b.getBackground().setColorFilter(Color.parseColor("#e57373"), PorterDuff.Mode.DARKEN);
+                return;
+            case "green":
+                b.getBackground().setColorFilter(Color.parseColor("#81C784"), PorterDuff.Mode.DARKEN);
+                return;
+            case "dark blue":
+                b.getBackground().setColorFilter(Color.parseColor("#03A9F4"), PorterDuff.Mode.DARKEN);
+                return;
             default:
                 return;
         }
