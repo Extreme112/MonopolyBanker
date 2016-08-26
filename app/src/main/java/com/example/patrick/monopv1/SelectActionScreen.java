@@ -3,6 +3,7 @@ package com.example.patrick.monopv1;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +25,9 @@ public class SelectActionScreen extends AppCompatActivity {
 
         text_cash = (TextView) findViewById(R.id.text_cash);
         text_cash.setText(String.valueOf(passedCashNumber));
+
+        //////////////////////
+        Log.d("myTag",String.valueOf(getParent()));
     }
 
     @Override
@@ -58,6 +62,18 @@ public class SelectActionScreen extends AppCompatActivity {
         i.putExtra("newNumber",passNumber);
         setResult(RESULT_OK,i);
         finish();
+    }
+
+    public void but_pay(View v){
+        //button will pay 50 to player 2
+        Intent i = new Intent();
+        String fragmentTagofPlayerToPay = "P2";
+        int amountOfMoneyToGive = 50;
+        i.putExtra("fragmentTagofPlayerToPay",fragmentTagofPlayerToPay);
+        i.putExtra("amountToPay",amountOfMoneyToGive);
+        setResult(6969,i);
+        finish();
+
     }
 
 

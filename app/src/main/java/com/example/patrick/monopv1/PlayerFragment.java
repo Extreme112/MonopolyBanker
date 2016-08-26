@@ -2,6 +2,7 @@ package com.example.patrick.monopv1;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,11 +15,24 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class PlayerFragment extends Fragment {
+    PaymentCommunicator paymentCommunicator;
     public static final int CHLD_REQ1 = 1;
     Globals g;
     int startingCash;
     TextView but_cash;
     Button but_name;
+
+    public interface PaymentCommunicator {
+        void respond(String fragmentTagofPlayerToPay, int amountOfMoneyToGive);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        paymentCommunicator = (PaymentCommunicator) context;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +51,7 @@ public class PlayerFragment extends Fragment {
                 nameClick();
             }
         });
+
         return view;
     }
 
@@ -45,6 +60,14 @@ public class PlayerFragment extends Fragment {
         if(requestCode == CHLD_REQ1 && resultCode == Activity.RESULT_OK){
             Bundle recievedData = data.getExtras();
             but_cash.setText(String.valueOf(recievedData.getInt("newNumber")));
+        } else if (requestCode == CHLD_REQ1 && resultCode == 6969){
+            Bundle receivedData = data.getExtras();
+            String fragmentTagofPlayerToPay = receivedData.getString("fragmentTagofPlayerToPay");
+            int amountOfMoneyToGive = receivedData.getInt("amountOfMoneyToGive");
+
+            Log.d("myTag","starting interface");
+            paymentCommunicator.respond("P2",50);
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -56,6 +79,13 @@ public class PlayerFragment extends Fragment {
         i.putExtra("mainActivityCash",currentCashNumber);
         i.putExtra("fragmentTag",getTag());
         startActivityForResult(i,CHLD_REQ1);
+    }
+
+    public boolean receiveMoney(int amountToReceive){
+        Log.d("myTag","receive money called in " + String.valueOf(getTag()) + "with amountToReceive = " + String.valueOf(amountToReceive));
+        int newCash = Integer.parseInt(but_cash.getText().toString()) + amountToReceive;
+        but_cash.setText(String.valueOf(newCash));
+        return true;
     }
 }
 

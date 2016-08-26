@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PlayerFragment.PaymentCommunicator{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,27 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
             linearLayout.addView(frameLayout1);
         }
-
-//        //Add first fragment
-//        FrameLayout frameLayout1 = new FrameLayout(this);
-//        frameLayout1.setId(View.generateViewId());
-//
-//        PlayerFragment frag1 = new PlayerFragment();
-//        transaction.add(frameLayout1.getId(),frag1,"Player1");
-//
-//        linearLayout.addView(frameLayout1);
-//        //end of first fragment
-//        //add second fragment
-//        FrameLayout frameLayout2 = new FrameLayout(this);
-//        frameLayout2.setId(View.generateViewId());
-//
-//        PlayerFragment frag2 = new PlayerFragment();
-//        transaction.add(frameLayout2.getId(),frag2,"Player2");
-//
-//        linearLayout.addView(frameLayout2);
-//        //end of second fragment
         transaction.commit();
     }
 
-
+    @Override
+    public void respond(String fragmentTagofPlayerToPay, int amountOfMoneyToGive) {
+        Log.d("myTag","respond function called in main");
+        //find fragment of player
+        PlayerFragment playerFragment =(PlayerFragment)getFragmentManager().findFragmentByTag(fragmentTagofPlayerToPay);
+        playerFragment.receiveMoney(amountOfMoneyToGive);
+    }
 }
