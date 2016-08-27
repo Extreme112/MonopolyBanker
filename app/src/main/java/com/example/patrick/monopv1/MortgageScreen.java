@@ -119,15 +119,6 @@ public class MortgageScreen extends AppCompatActivity {
         return 0;
     }
 
-    public void setOwner(String s, String fragmentTag){
-        for(PropertyCard p: properties){
-            if(p.getName().equals(s)){
-                p.setOwner(fragmentTag);
-                g.setProperties(properties);
-            }
-        }
-    }
-
     public void setOwnerToNone(String s){
         for(PropertyCard p: properties){
             if(p.getName().equals(s)){
@@ -136,7 +127,6 @@ public class MortgageScreen extends AppCompatActivity {
             }
         }
     }
-
 
 
     public void setBackgroundColor(Button b, PropertyCard p){

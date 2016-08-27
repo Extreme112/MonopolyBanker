@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -76,6 +77,35 @@ public class Globals extends Application{
         properties = p;
         return true;
     }
+
+    public  ArrayList<PropertyCard> getEmptyProperties(){
+        ArrayList<PropertyCard> emptyProperties = new ArrayList<PropertyCard>();
+        for (PropertyCard p : properties){
+            if (p.getOwner().equals("none")){
+                emptyProperties.add(p);
+            }
+        }
+        return emptyProperties;
+    }
+
+    public ArrayList<PropertyCard> getOwnedProperties(String fragmentTag){
+        ArrayList<PropertyCard> ownedProperties = new ArrayList<PropertyCard>();
+
+        for (PropertyCard p : properties){
+            if (p.getOwner().equals(fragmentTag)){
+                ownedProperties.add(p);
+            }
+        }
+        return ownedProperties;
+    }
+
+//    public String[] getProperyNames(){
+//        String[] stringArray = new String[properties.size()];
+//        for (int i = 0; i < properties.size(); i++){
+//            stringArray[i] = properties.get(i).getName();
+//        }
+//        return stringArray;
+//    }
 
     public int getStartingCash(){
         return startingCash;

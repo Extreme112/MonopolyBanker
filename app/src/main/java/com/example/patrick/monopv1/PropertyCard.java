@@ -15,6 +15,7 @@ public class PropertyCard {
     private int mortgage;
     private String color;
     private String owner = "none";
+    private int img;
 
     public PropertyCard(String init_propertyName, int init_price, int init_rentCost,int init_house_1Cost, int init_house_2Cost,
                         int init_house_3Cost, int init_house_4Cost, int init_hotelCost, int init_mortgage, String init_color){
@@ -28,6 +29,18 @@ public class PropertyCard {
         hotel = init_hotelCost;
         mortgage = init_mortgage;
         color = init_color;
+
+        switch (color){
+            case "dark purple": img = R.drawable.label_purple; break;
+            case "light blue": img = R.drawable.label_lightblue; break;
+            case "pink" : img = R.drawable.label_pink; break;
+            case "orange" : img = R.drawable.label_orange; break;
+            case "yellow" : img = R.drawable.label_yellow; break;
+            case "red" : img = R.drawable.label_red; break;
+            case "green" : img = R.drawable.label_green; break;
+            case "dark blue": img = R.drawable.label_blue; break;
+            default: img = 0; break;
+        }
     }
 
     public PropertyCard(String init_propertyName, int init_price, int init_rentCost, int init_mortgage, String init_color){
@@ -36,6 +49,21 @@ public class PropertyCard {
         rent = init_rentCost;
         mortgage = init_mortgage;
         color = init_color;
+        switch (color){
+            case "dark purple": img = R.drawable.label_purple; break;
+            case "light blue": img = R.drawable.label_lightblue; break;
+            case "pink" : img = R.drawable.label_pink; break;
+            case "orange" : img = R.drawable.label_orange; break;
+            case "yellow" : img = R.drawable.label_yellow; break;
+            case "red" : img = R.drawable.label_red; break;
+            case "green" : img = R.drawable.label_green; break;
+            case "dark blue": img = R.drawable.label_blue; break;
+            default: img = 0; break;
+        }
+    }
+
+    public int getImg() {
+        return img;
     }
 
     public int getRent(){
@@ -91,4 +119,7 @@ public class PropertyCard {
         owner = "none";
         return true;
     }
+
+
+
 }
