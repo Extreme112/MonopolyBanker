@@ -36,53 +36,65 @@ public class PurchaseScreen extends AppCompatActivity{
         final Bundle passedData = getIntent().getExtras();
         final String fragmentTag = passedData.getString("fragmentTag");
 
-        listView.setAdapter(new DisplayAdapter(this,properties));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if(properties.size() > 0){
+            listView.setAdapter(new DisplayAdapter(this,properties));
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
+                    final PropertyCard propertyCard = (PropertyCard) listView.getItemAtPosition(i);
+                    Log.d("myTag",propertyCard.getName() + "clicked");
 
-                final PropertyCard propertyCard = (PropertyCard) listView.getItemAtPosition(i);
-                Log.d("myTag",propertyCard.getName() + "clicked");
+                    final int purchasePrice = propertyCard.getPrice();
+                    final String propertyName = propertyCard.getName();
+                    final int newCash = passedData.getInt("currentCash");
 
-                final int purchasePrice = propertyCard.getPrice();
-                final String propertyName = propertyCard.getName();
-                final int newCash = passedData.getInt("currentCash");
+                    //Create Yes/No Dialogue Box
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(PurchaseScreen.this);
+                    builder1.setMessage("Purchase " + propertyName +" for $" + purchasePrice +"?");
+                    builder1.setCancelable(true);
+                    builder1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
 
-                //Create Yes/No Dialogue Box
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(PurchaseScreen.this);
-                builder1.setMessage("Purchase " + propertyName +" for $" + purchasePrice +"?");
-                builder1.setCancelable(true);
-                builder1.setPositiveButton(
-                        "Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                                    int valueToPass = newCash - purchasePrice;
+                                    setOwner(propertyName,fragmentTag);
 
-                                int valueToPass = newCash - purchasePrice;
-                                setOwner(propertyName,fragmentTag);
+                                    Intent i = new Intent();
+                                    i.putExtra("price",valueToPass);
+                                    setResult(RESULT_OK,i);
+                                    finish();
+                                    dialog.cancel();
+                                }
+                            });
 
-                                Intent i = new Intent();
-                                i.putExtra("price",valueToPass);
-                                setResult(RESULT_OK,i);
-                                finish();
-                                dialog.cancel();
-                            }
-                        });
-
-                builder1.setNegativeButton(
-                        "No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
-            }
-        });
+                    builder1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
+                }
+            });
+        } else {
+            AlertDialog.Builder builder1 = new AlertDialog.Builder(PurchaseScreen.this);
+            builder1.setMessage("No properties to buy");
+            builder1.setCancelable(true);
+            builder1.setPositiveButton(
+                    "Ok",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            finish();
+                        }
+                    });
+            AlertDialog alert11 = builder1.create();
+            alert11.show();
+        }
     }
-
-
 
     public void setOwner(String s, String fragmentTag){
         for(PropertyCard p: properties){
@@ -91,48 +103,5 @@ public class PurchaseScreen extends AppCompatActivity{
                 g.setProperties(properties);
             }
         }
-    }
-}
-
-class DisplayAdapter extends BaseAdapter {
-
-    ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
-    Context context;
-
-    DisplayAdapter(Context c,ArrayList<PropertyCard> p){
-        properties = p;
-        context = c;
-    }
-
-
-    @Override
-    public int getCount() {
-        return properties.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return properties.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.sing_row,viewGroup,false);
-        TextView title = (TextView) row.findViewById(R.id.textView);
-        ImageView img = (ImageView) row.findViewById(R.id.imageView);
-
-        properties.get(i).getName();
-        properties.get(i).getImg();
-
-        title.setText(properties.get(i).getName());
-        img.setImageResource(properties.get(i).getImg());
-        return row;
     }
 }
