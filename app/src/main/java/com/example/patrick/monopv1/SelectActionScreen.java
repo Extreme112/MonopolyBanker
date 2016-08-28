@@ -106,23 +106,49 @@ public class SelectActionScreen extends AppCompatActivity {
 
     }
 
-    public void but_confirm(View v){
-        Intent i = new Intent();
-        int passNumber = Integer.parseInt(text_cash.getText().toString());
-        i.putExtra("newNumber",passNumber);
-        setResult(RESULT_OK,i);
-        finish();
-    }
+//    public void but_confirm(View v){
+//        Intent i = new Intent();
+//        int passNumber = Integer.parseInt(text_cash.getText().toString());
+//        i.putExtra("newNumber",passNumber);
+//        setResult(RESULT_OK,i);
+//        finish();
+//    }
 
     public void but_pay(View v){
         //button will pay 50 to player 2
-        Intent i = new Intent();
-        String fragmentTagofPlayerToPay = "P2";
-        int amountOfMoneyToGive = 50;
-        i.putExtra("fragmentTagofPlayerToPay",fragmentTagofPlayerToPay);
-        i.putExtra("amountToPay",amountOfMoneyToGive);
-        setResult(6969,i);
-        finish();
+        ArrayList<String> playerNames = new ArrayList<String>();
+        for (Player p : players){
+            playerNames.add(p.getName());
+        }
+        CharSequence[] cs = {"James","jill"};
+                //playerNames.toArray(new CharSequence[playerNames.size()]);
+
+
+        //Create Yes/No Dialogue Box
+        AlertDialog.Builder builder = new AlertDialog.Builder(SelectActionScreen.this);
+        builder.setMessage("Who to pay?");
+        builder.setCancelable(true);
+        builder.setItems(
+                cs,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert11 = builder.create();
+        alert11.show();
+
+
+
+
+
+//        Intent i = new Intent();
+//        String fragmentTagofPlayerToPay = "P2";
+//        int amountOfMoneyToGive = 50;
+//        i.putExtra("fragmentTagofPlayerToPay",fragmentTagofPlayerToPay);
+//        i.putExtra("amountToPay",amountOfMoneyToGive);
+//        setResult(6969,i);
+//        finish();
 
     }
 
