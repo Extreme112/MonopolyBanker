@@ -13,44 +13,40 @@ import java.util.ArrayList;
 /**
  * Created by Patrick on 8/26/2016.
  */
-public class DisplayAdapter extends BaseAdapter {
-    ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
+public class PlayerAdapter extends BaseAdapter {
+
     Context context;
-
-    DisplayAdapter(Context c,ArrayList<PropertyCard> p){
-        properties = p;
+    ArrayList<Player> players = new ArrayList<Player>();
+    //Constructor(s)
+    PlayerAdapter(Context c,ArrayList<Player> p){
         context = c;
+        players = p;
     }
-
 
     @Override
     public int getCount() {
-        return properties.size();
+        return players.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return properties.get(i);
+        return players.get(i);
     }
 
     @Override
     public long getItemId(int i) {
-        return i;
+        return 0;
     }
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.sing_row,viewGroup,false);
-        TextView title = (TextView) row.findViewById(R.id.textView);
-        ImageView img = (ImageView) row.findViewById(R.id.imageView);
+        View row = inflater.inflate(R.layout.player_adapter_single_row,viewGroup,false);
+        TextView name = (TextView) row.findViewById(R.id.player_adapter_textViewName);
+        TextView cash = (TextView) row.findViewById(R.id.player_adapter_textViewCash);
 
-        properties.get(i).getName();
-        properties.get(i).getImg();
-
-        title.setText(properties.get(i).getName());
-        img.setImageResource(properties.get(i).getImg());
+        name.setText(players.get(i).getName());
+        cash.setText(String.valueOf(players.get(i).getCash()));
         return row;
     }
 }

@@ -16,10 +16,20 @@ import java.util.ArrayList;
  * Created by Patrick on 8/21/2016.
  */
 public class Globals extends Application{
+    //variiables
     private ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
     private int startingCash = 1500;
+    private ArrayList<Player> players = new ArrayList<Player>();
+
+    //functions
+
     @Override
     public void onCreate() {
+        for (int i = 0; i < 4; i++){
+            Player player = new Player("Player"+i,"P"+i,startingCash);
+            players.add(player);
+        }
+        //load propertie.json
         super.onCreate();
         Log.d("myTag","Starting...");
         try {
@@ -49,6 +59,13 @@ public class Globals extends Application{
             Log.d("myTag","Exception-called in onCreate");
             e.printStackTrace();
         }
+    }
+
+    public ArrayList<Player> getPlayers(){
+        return players;
+    }
+    public void setPlayers(ArrayList<Player> p){
+        players = p;
     }
 
     public String loadJSONFromAsset() {
@@ -88,15 +105,24 @@ public class Globals extends Application{
         return emptyProperties;
     }
 
-    public ArrayList<PropertyCard> getOwnedProperties(String fragmentTag){
+    public ArrayList<PropertyCard> getOwnedProperties(String playerID){
         ArrayList<PropertyCard> ownedProperties = new ArrayList<PropertyCard>();
 
         for (PropertyCard p : properties){
-            if (p.getOwner().equals(fragmentTag)){
+            if (p.getOwner().equals(playerID)){
                 ownedProperties.add(p);
             }
         }
         return ownedProperties;
+    }
+
+    public String getOwnerOfProperty(String propertyName){
+        for (PropertyCard p : properties){
+            if(p.getName().equals(propertyName)){
+                return p.getOwner();
+            }
+        }
+        return "none";
     }
 
 //    public String[] getProperyNames(){

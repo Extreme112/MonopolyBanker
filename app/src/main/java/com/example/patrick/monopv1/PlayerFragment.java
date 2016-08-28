@@ -63,10 +63,11 @@ public class PlayerFragment extends Fragment {
         } else if (requestCode == CHLD_REQ1 && resultCode == 6969){
             Bundle receivedData = data.getExtras();
             String fragmentTagofPlayerToPay = receivedData.getString("fragmentTagofPlayerToPay");
-            int amountOfMoneyToGive = receivedData.getInt("amountOfMoneyToGive");
+            int amountOfMoneyToGive = receivedData.getInt("amountToPay");
 
             Log.d("myTag","starting interface");
-            paymentCommunicator.respond("P2",50);
+            Log.d("myTag","amountOfMoneyToGive = " + String.valueOf(amountOfMoneyToGive));
+            paymentCommunicator.respond(fragmentTagofPlayerToPay,amountOfMoneyToGive);
 
         }
         super.onActivityResult(requestCode, resultCode, data);
