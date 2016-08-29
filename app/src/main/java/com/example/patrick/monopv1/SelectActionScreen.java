@@ -9,12 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class SelectActionScreen extends AppCompatActivity {
     public static final int CHLD_REQ2 = 2;
-    //public static final int CHLD_REQ3 = 3;
+    //declarations
     Globals g;
     TextView text_cash;
     String fragmentTag;
@@ -61,20 +62,8 @@ public class SelectActionScreen extends AppCompatActivity {
     }
 
     public void but_purchase(View v){
-        if(g.getEmptyProperties().size() <= 0){ //no more properties to buy
-            //Create Yes/No Dialogue Box
-            AlertDialog.Builder builder = new AlertDialog.Builder(SelectActionScreen.this);
-            builder.setMessage("No more available properties.");
-            builder.setCancelable(true);
-            builder.setPositiveButton(
-                    "Back",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert11 = builder.create();
-            alert11.show();
+        if(g.getEmptyProperties().size() <= 0){
+            Toast.makeText(getBaseContext(),"No properties available.",Toast.LENGTH_SHORT).show();
         } else {
             Intent i = new Intent(this,PurchaseScreen.class);
             i.putExtra("playerID",playerID);
@@ -85,19 +74,7 @@ public class SelectActionScreen extends AppCompatActivity {
 
     public void but_mortgage(View v){
         if(g.getOwnedProperties(playerID).size() <= 0){
-            //Create Yes/No Dialogue Box
-            AlertDialog.Builder builder = new AlertDialog.Builder(SelectActionScreen.this);
-            builder.setMessage("No properties owned.");
-            builder.setCancelable(true);
-            builder.setPositiveButton(
-                    "Back",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-            AlertDialog alert11 = builder.create();
-            alert11.show();
+            Toast.makeText(getBaseContext(),"No owned properties.",Toast.LENGTH_SHORT).show();
         } else {
             Intent i = new Intent(this,MortgageScreen.class);
             i.putExtra("playerID",playerID);
@@ -106,14 +83,6 @@ public class SelectActionScreen extends AppCompatActivity {
 
     }
 
-//    public void but_confirm(View v){
-//        Intent i = new Intent();
-//        int passNumber = Integer.parseInt(text_cash.getText().toString());
-//        i.putExtra("newNumber",passNumber);
-//        setResult(RESULT_OK,i);
-//        finish();
-//    }
-
     public void but_pay(View v){
         //button will pay 50 to player 2
         ArrayList<String> playerNames = new ArrayList<String>();
@@ -121,8 +90,6 @@ public class SelectActionScreen extends AppCompatActivity {
             playerNames.add(p.getName());
         }
         CharSequence[] cs = {"James","jill"};
-                //playerNames.toArray(new CharSequence[playerNames.size()]);
-
 
         //Create Yes/No Dialogue Box
         AlertDialog.Builder builder = new AlertDialog.Builder(SelectActionScreen.this);
@@ -137,20 +104,5 @@ public class SelectActionScreen extends AppCompatActivity {
                 });
         AlertDialog alert11 = builder.create();
         alert11.show();
-
-
-
-
-
-//        Intent i = new Intent();
-//        String fragmentTagofPlayerToPay = "P2";
-//        int amountOfMoneyToGive = 50;
-//        i.putExtra("fragmentTagofPlayerToPay",fragmentTagofPlayerToPay);
-//        i.putExtra("amountToPay",amountOfMoneyToGive);
-//        setResult(6969,i);
-//        finish();
-
     }
-
-
 }
