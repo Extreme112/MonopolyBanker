@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.patrick.monopv1.SelectActionScreen">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/text_cash"
+        style="@style/Base.TextAppearance.AppCompat.Display1"
+        android:textColor="#1b5e20"
+        android:layout_below="@+id/textView_playerName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/purchase"
+        android:id="@+id/but_purchase"
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textSize="25sp"
+        android:onClick="but_purchase"
+        android:layout_below="@+id/text_cash"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="62dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mortgage"
+        android:id="@+id/but_mortgage"
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textSize="25sp"
+        android:onClick="but_mortgage"
+        android:layout_alignTop="@+id/but_purchase"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/collect"
+        android:id="@+id/but_collect"
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textSize="25sp"
+        android:textColor="#536dfe"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/but_payToBank"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pay_to_player"
+        android:id="@+id/but_payToBank"
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textSize="25sp"
+        android:textColor="#536dfe"
+        android:onClick="but_payToPlayer"
+        android:layout_below="@+id/but_purchase"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/but_purchase" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medium Text"
+        android:id="@+id/textView_playerName"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>
+
+
