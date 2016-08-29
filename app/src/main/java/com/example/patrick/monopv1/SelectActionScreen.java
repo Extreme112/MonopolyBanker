@@ -88,22 +88,13 @@ public class SelectActionScreen extends AppCompatActivity {
 
     }
 
-<<<<<<< HEAD
-    public void but_pay(View v){
-=======
-
     public void but_payToPlayer(View v){
->>>>>>> feature/Pay_Players
         //button will pay 50 to player 2
         final ArrayList<String> playerNames = new ArrayList<String>();
         for (Player p : players){
             playerNames.add(p.getName());
         }
-<<<<<<< HEAD
-        CharSequence[] cs = {"James","jill"};
-=======
         CharSequence[] cs = playerNames.toArray(new CharSequence[playerNames.size()]);
->>>>>>> feature/Pay_Players
 
         //Create Yes/No Dialogue Box
         final AlertDialog.Builder builder = new AlertDialog.Builder(SelectActionScreen.this);
@@ -170,10 +161,6 @@ public class SelectActionScreen extends AppCompatActivity {
                         builder1.show();
                     }
                 });
-<<<<<<< HEAD
-        AlertDialog alert11 = builder.create();
-        alert11.show();
-=======
         AlertDialog pickPlayer = builder.create();
         pickPlayer.show();
 
@@ -186,6 +173,5 @@ public class SelectActionScreen extends AppCompatActivity {
                 currentPlayer = p;
         }
         textView_cash.setText(String.valueOf(currentPlayer.getCash()));
->>>>>>> feature/Pay_Players
     }
 }
