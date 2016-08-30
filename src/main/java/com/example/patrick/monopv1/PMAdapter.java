@@ -47,7 +47,7 @@ public class PMAdapter extends BaseAdapter {
         TextView title = (TextView) row.findViewById(R.id.textView);
         ImageView img = (ImageView) row.findViewById(R.id.imageView);
 
-        title.setText(properties.get(i).getName());
+        title.setText(properties.get(i).getPropertyName());
         img.setImageResource(properties.get(i).getImg());
         return row;
     }

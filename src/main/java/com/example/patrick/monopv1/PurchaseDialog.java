@@ -28,14 +28,12 @@ public class PurchaseDialog extends DialogFragment{
         final String propertyName  = args.getString("propertyName"," ");
         final int purchasePrice = args.getInt("purchasePrice",0);
 
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true);
         builder.setMessage(message);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
                 //needs to know the player purchasing, property name, property price
                 purchaseDialogCommunicator.performActions(purchasePrice,propertyName);
 
@@ -50,9 +48,8 @@ public class PurchaseDialog extends DialogFragment{
         return builder.create();
     }
 
-
     public interface PurchaseDialogCommunicator{
-        void performActions(int purchasePrice, String propertyName);
+        void performActions(int price, String propertyName);
     }
 }
 

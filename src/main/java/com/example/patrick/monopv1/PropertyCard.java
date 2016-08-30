@@ -4,31 +4,31 @@ package com.example.patrick.monopv1;
  * Created by Patrick on 8/21/2016.
  */
 public class PropertyCard {
-    private String name;
-    private int price;
+    private String propertyName;
+    private int purchasePrice;
     private int rent;
     private int house_1;
     private int house_2;
     private int house_3;
     private int house_4;
     private int hotel;
-    private int mortgage;
+    private int mortgagePrice;
     private String color;
     private String owner = "none";
     private int img;
 
     public PropertyCard(String init_propertyName, int init_price, int init_rentCost,int init_house_1Cost, int init_house_2Cost,
                         int init_house_3Cost, int init_house_4Cost, int init_hotelCost, int init_mortgage, String init_color){
-        name = init_propertyName;
-        price = init_price;
-        rent = init_rentCost;
-        house_1 = init_house_1Cost;
-        house_2 = init_house_2Cost;
-        house_3 = init_house_3Cost;
-        house_4 = init_house_4Cost;
-        hotel = init_hotelCost;
-        mortgage = init_mortgage;
-        color = init_color;
+        this.propertyName = init_propertyName;
+        this.purchasePrice = init_price;
+        this.rent = init_rentCost;
+        this.house_1 = init_house_1Cost;
+        this.house_2 = init_house_2Cost;
+        this.house_3 = init_house_3Cost;
+        this.house_4 = init_house_4Cost;
+        this.hotel = init_hotelCost;
+        this.mortgagePrice = init_mortgage;
+        this.color = init_color;
 
         switch (color){
             case "dark purple": img = R.drawable.label_purple; break;
@@ -44,10 +44,10 @@ public class PropertyCard {
     }
 
     public PropertyCard(String init_propertyName, int init_price, int init_rentCost, int init_mortgage, String init_color){
-        name = init_propertyName;
-        price = init_price;
+        propertyName = init_propertyName;
+        purchasePrice = init_price;
         rent = init_rentCost;
-        mortgage = init_mortgage;
+        mortgagePrice = init_mortgage;
         color = init_color;
         switch (color){
             case "dark purple": img = R.drawable.label_purple; break;
@@ -90,16 +90,16 @@ public class PropertyCard {
         return hotel;
     }
 
-    public int getMortgage(){
-        return mortgage;
+    public int getMortgagePrice(){
+        return mortgagePrice;
     }
 
-    public String getName(){
-        return name;
+    public String getPropertyName(){
+        return propertyName;
     }
 
-    public int getPrice(){
-        return price;
+    public int getPurchasePrice(){
+        return purchasePrice;
     }
 
     public String getColor(){

@@ -8,4 +8,5 @@
     <string name="pay">pay</string>
     <string name="pay_to_bank">Pay To Bank</string>
     <string name="pay_to_player">Pay To Player</string>
+    <string name="print_properties">Print Properties</string>
 </resources>

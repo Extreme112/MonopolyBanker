@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -53,7 +52,7 @@ public class Globals extends Application{
             }
 
             for(PropertyCard p : properties){
-                Log.d("Details-->", p.getName());
+                Log.d("Details-->", p.getPropertyName());
             }
         } catch (JSONException e){
             Log.d("myTag","Exception-called in onCreate");
@@ -118,7 +117,7 @@ public class Globals extends Application{
 
     public String getOwnerOfProperty(String propertyName){
         for (PropertyCard p : properties){
-            if(p.getName().equals(propertyName)){
+            if(p.getPropertyName().equals(propertyName)){
                 return p.getOwner();
             }
         }
@@ -128,7 +127,7 @@ public class Globals extends Application{
 //    public String[] getProperyNames(){
 //        String[] stringArray = new String[properties.size()];
 //        for (int i = 0; i < properties.size(); i++){
-//            stringArray[i] = properties.get(i).getName();
+//            stringArray[i] = properties.get(i).getPropertyName();
 //        }
 //        return stringArray;
 //    }

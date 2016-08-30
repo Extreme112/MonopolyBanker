@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class SelectActionScreen extends AppCompatActivity {
     ArrayList<Player> players = new ArrayList<Player>();
     Player currentPlayer;
     Player playerToPay;
+    Button but_printProperties;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,13 +49,21 @@ public class SelectActionScreen extends AppCompatActivity {
         textView_playerName = (TextView) findViewById(R.id.textView_playerName);
         textView_playerName.setText(currentPlayer.getName());
 
+        but_printProperties = (Button) findViewById(R.id.but_printProperties);
+        but_printProperties.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                but_printProperties();
+            }
+        });
+
         Log.d("myTag",this.getClass().getSimpleName());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == CHLD_REQ2 && resultCode == RESULT_OK){
-            //update player
+            //update players
             players = g.getPlayers();
             for (Player p : players){
                 if(p.getId().equals(playerID))
@@ -64,6 +74,14 @@ public class SelectActionScreen extends AppCompatActivity {
 
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void but_printProperties(){
+        ArrayList<PropertyCard> properties;
+        properties = g.getProperties();
+        for (PropertyCard p : properties){
+            Log.d("pp",p.getPropertyName() + p.getOwner());
+        }
     }
 
     public void but_purchase(View v){
@@ -170,4 +188,6 @@ public class SelectActionScreen extends AppCompatActivity {
         }
         textView_cash.setText(String.valueOf(currentPlayer.getCash()));
     }
+
+
 }
