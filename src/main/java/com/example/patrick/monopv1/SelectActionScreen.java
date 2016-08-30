@@ -47,7 +47,7 @@ public class SelectActionScreen extends AppCompatActivity {
         textView_playerName = (TextView) findViewById(R.id.textView_playerName);
         textView_playerName.setText(currentPlayer.getName());
 
-
+        Log.d("myTag",this.getClass().getSimpleName());
     }
 
     @Override
@@ -95,7 +95,6 @@ public class SelectActionScreen extends AppCompatActivity {
             playerNames.add(p.getName());
         }
         CharSequence[] cs = playerNames.toArray(new CharSequence[playerNames.size()]);
-
         //Create Yes/No Dialogue Box
         final AlertDialog.Builder builder = new AlertDialog.Builder(SelectActionScreen.this);
         builder.setTitle("Who to pay?");
@@ -104,10 +103,8 @@ public class SelectActionScreen extends AppCompatActivity {
                 cs,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
                         String selectedPlayerID = "P" + id;
                         //modify cash value of player with selectedPlayerId
-                        //
                         for (Player p : players){
                             if (p.getId().equals(selectedPlayerID)){
                                 playerToPay = p; break;
@@ -148,7 +145,6 @@ public class SelectActionScreen extends AppCompatActivity {
                                             g.setPlayers(players);
                                             update();
                                         }
-
                                     }
                                 })
                                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
