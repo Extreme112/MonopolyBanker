@@ -11,14 +11,19 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class PurchaseScreen extends AppCompatActivity implements PurchaseDialog.PurchaseDialogCommunicator{
+public class PurchaseScreen extends AppCompatActivity implements YesNoDF.Communicator {
     Globals g;
     ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
     ArrayList<Player> players = new ArrayList<Player>();
     Player currentPlayer;
     ListView listView;
     String playerID;
+    Bundle passedData;
 
+    //Property card info
+    PropertyCard propertyCard;
+    String propertyName;
+    int purchasePrice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Log.d("myTag","PurchaseScreen launched");
@@ -30,7 +35,7 @@ public class PurchaseScreen extends AppCompatActivity implements PurchaseDialog.
         players = g.getPlayers();
         listView = (ListView) findViewById(R.id.listView);
         //get extras
-        final Bundle passedData = getIntent().getExtras();
+        passedData = getIntent().getExtras();
         playerID = passedData.getString("playerID");
         //get current player based on playerID. now we know who is doing the purchasing
         for(Player p : players){
@@ -46,11 +51,10 @@ public class PurchaseScreen extends AppCompatActivity implements PurchaseDialog.
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    final PropertyCard propertyCard = (PropertyCard) listView.getItemAtPosition(i);
-                    Log.d("myTag",propertyCard.getPropertyName() + "clicked");
+                    propertyCard = (PropertyCard) listView.getItemAtPosition(i);;
 
-                    final int purchasePrice = propertyCard.getPurchasePrice();
-                    final String propertyName = propertyCard.getPropertyName();
+                    propertyName = propertyCard.getPropertyName();
+                    purchasePrice = propertyCard.getPurchasePrice();
 
                     //create dialog box
                     String message = "Are you sure you want to purchase " + propertyName + "for $" + purchasePrice + "?";
@@ -58,9 +62,9 @@ public class PurchaseScreen extends AppCompatActivity implements PurchaseDialog.
                     args.putInt("purchasePrice",purchasePrice);
                     args.putString("message",message);
                     args.putString("propertyName",propertyName);
-                    PurchaseDialog purchaseDialog = new PurchaseDialog();
-                    purchaseDialog.setArguments(args);
-                    purchaseDialog.show(getFragmentManager(),"purchaseDialogFragment");
+                    YesNoDF yesNoDF = new YesNoDF();
+                    yesNoDF.setArguments(args);
+                    yesNoDF.show(getFragmentManager(),"purchaseDF");
 
                 }
             });
@@ -82,7 +86,7 @@ public class PurchaseScreen extends AppCompatActivity implements PurchaseDialog.
 
     public void setOwner(String propertyCardName, String playerID){
         for(PropertyCard p: properties){
-            if(p.getPropertyName().equals(propertyCardName)){
+            if(p.getPropertyName().equals(propertyName)){
                 p.setOwner(playerID);
                 g.setProperties(properties);
             }
@@ -91,10 +95,10 @@ public class PurchaseScreen extends AppCompatActivity implements PurchaseDialog.
 
 
     @Override
-    public void performActions(int price, String propertyName) {
+    public void performActions() {
         Log.d("myTag","performing--actions");
         //modify player value
-        currentPlayer.subtractFromCash(price);
+        currentPlayer.subtractFromCash(purchasePrice);
         //replace old currentPlayer with newly updated currentPlayer in players.
         for(int i = 0; i < players.size();i++){
             if (players.get(i).getId().equals(currentPlayer.getId())){

@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SelectActionScreen extends AppCompatActivity {
+public class SelectActionScreen extends AppCompatActivity implements EditTextDF.Communicator2{
     public static final int CHLD_REQ2 = 2;
     //declarations
     Globals g;
@@ -129,50 +129,13 @@ public class SelectActionScreen extends AppCompatActivity {
                             }
                         }
                         Log.d("myTag","Launching second dialog.");
-                        //Create another dialogue
-                        AlertDialog.Builder builder1 = new AlertDialog.Builder(SelectActionScreen.this);
-                        builder1.setTitle("Amount");
-                        LayoutInflater inflater = getLayoutInflater();
-                        View v = inflater.inflate(R.layout.amountopay, null);
-                        final EditText editText = (EditText) v.findViewById(R.id.editText_amountToPay);
-
-                        builder1.setView(v)
-                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        int amountToPay = Integer.parseInt(editText.getText().toString());
-                                        if (amountToPay > currentPlayer.getCash()){
-                                            Toast.makeText(getBaseContext(),"Not enough cash.",Toast.LENGTH_SHORT).show();
-                                            dialog.cancel();
-                                        } else {
-                                            currentPlayer.subtractFromCash(amountToPay);
-                                            playerToPay.addToCash(amountToPay);
-                                            //update current players
-                                            for (Player p : players){
-                                                if (p == currentPlayer){
-                                                    p = currentPlayer;
-                                                }
-                                            }
-                                            //update playerToPay
-                                            for (Player p : players){
-                                                if (p == playerToPay){
-                                                    p = playerToPay;
-                                                }
-                                            }
-                                            //update global g
-                                            g.setPlayers(players);
-                                            update();
-                                        }
-                                    }
-                                })
-                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-                        AlertDialog pickAmount = builder1.create();
-                        builder1.show();
+                        //create second dialogue
+                        String title = "Amount";
+                        Bundle args = new Bundle();
+                        args.putString("title",title);
+                        EditTextDF editTextDF = new EditTextDF();
+                        editTextDF.setArguments(args);
+                        editTextDF.show(getFragmentManager(),"amountDF");
                     }
                 });
         AlertDialog pickPlayer = builder.create();
@@ -190,4 +153,28 @@ public class SelectActionScreen extends AppCompatActivity {
     }
 
 
+    @Override
+    public void performActions(int price) {
+        if (price > currentPlayer.getCash()){
+            Toast.makeText(getBaseContext(),"Not enough cash.",Toast.LENGTH_SHORT).show();
+        } else {
+            currentPlayer.subtractFromCash(price);
+            playerToPay.addToCash(price);
+            //update current players
+            for (Player p : players) {
+                if (p == currentPlayer) {
+                    p = currentPlayer;
+                }
+            }
+            //update playerToPay
+            for (Player p : players) {
+                if (p == playerToPay) {
+                    p = playerToPay;
+                }
+            }
+            //update global g
+            g.setPlayers(players);
+            update();
+        }
+    }
 }

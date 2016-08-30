@@ -11,13 +11,18 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MortgageScreen extends AppCompatActivity implements PurchaseDialog.PurchaseDialogCommunicator{
+public class MortgageScreen extends AppCompatActivity implements YesNoDF.Communicator {
     Globals g;
     ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
     ArrayList<Player> players = new ArrayList<Player>();
     Player currentPlayer;
     ListView listView;
     String playerID;
+
+    //Property card info
+    PropertyCard propertyCard;
+    String propertyName;
+    int mortgagePrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +52,11 @@ public class MortgageScreen extends AppCompatActivity implements PurchaseDialog.
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                    final PropertyCard propertyCard = (PropertyCard) listView.getItemAtPosition(i);
+                    propertyCard = (PropertyCard) listView.getItemAtPosition(i);
                     Log.d("myTag",propertyCard.getPropertyName() + "clicked");
 
-                    final int mortgagePrice = propertyCard.getMortgagePrice();
-                    final String propertyName = propertyCard.getPropertyName();
+                    mortgagePrice = propertyCard.getMortgagePrice();
+                    propertyName = propertyCard.getPropertyName();
 
                     //create dialog box
                     String message = "Are you sure you want to mortgage " + propertyName + "for $" + mortgagePrice + "?";
@@ -59,9 +64,9 @@ public class MortgageScreen extends AppCompatActivity implements PurchaseDialog.
                     args.putInt("mortgagePrice",mortgagePrice);
                     args.putString("message",message);
                     args.putString("propertyName",propertyName);
-                    PurchaseDialog purchaseDialog = new PurchaseDialog();
-                    purchaseDialog.setArguments(args);
-                    purchaseDialog.show(getFragmentManager(),"purchaseDialogFragment");
+                    YesNoDF yesNoDF = new YesNoDF();
+                    yesNoDF.setArguments(args);
+                    yesNoDF.show(getFragmentManager(),"mortgageDF");
                 }
             });
         } else {
@@ -90,9 +95,9 @@ public class MortgageScreen extends AppCompatActivity implements PurchaseDialog.
     }
 
     @Override
-    public void performActions(int price, String propertyName) {
+    public void performActions() {
         //modify player cash
-        currentPlayer.subtractFromCash(price);
+        currentPlayer.addToCash(mortgagePrice);
         //replace old currentPlayer with newly updated currentPlayer in players.
         for(int i = 0; i < players.size();i++){
             if (players.get(i).getId().equals(currentPlayer.getId())){

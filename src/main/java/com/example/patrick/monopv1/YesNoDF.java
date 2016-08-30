@@ -10,23 +10,20 @@ import android.os.Bundle;
 /**
  * Created by Patrick on 8/29/2016.
  */
-public class PurchaseDialog extends DialogFragment{
-    private PurchaseDialogCommunicator purchaseDialogCommunicator;
+public class YesNoDF extends DialogFragment{
+    private Communicator communicator;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        purchaseDialogCommunicator = (PurchaseDialogCommunicator)context;
+        communicator = (Communicator)context;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         Bundle args = getArguments();
         //String title = args.getString("title"," ");
         String message = args.getString("message"," ");
-        final String propertyName  = args.getString("propertyName"," ");
-        final int purchasePrice = args.getInt("purchasePrice",0);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true);
@@ -35,7 +32,7 @@ public class PurchaseDialog extends DialogFragment{
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //needs to know the player purchasing, property name, property price
-                purchaseDialogCommunicator.performActions(purchasePrice,propertyName);
+                communicator.performActions();
 
             }
         });
@@ -48,8 +45,8 @@ public class PurchaseDialog extends DialogFragment{
         return builder.create();
     }
 
-    public interface PurchaseDialogCommunicator{
-        void performActions(int price, String propertyName);
+    public interface Communicator {
+        void performActions();
     }
 }
 
