@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class MortgageScreen extends AppCompatActivity implements YesNoDF.Communicator {
+public class MortgageScreen extends AppCompatActivity implements YesNoDF.YesNoDFInterface {
     Globals g;
     ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
     ArrayList<Player> players = new ArrayList<Player>();

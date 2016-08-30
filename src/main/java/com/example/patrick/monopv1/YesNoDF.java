@@ -11,12 +11,12 @@ import android.os.Bundle;
  * Created by Patrick on 8/29/2016.
  */
 public class YesNoDF extends DialogFragment{
-    private Communicator communicator;
+    private YesNoDFInterface yesNoDFInterface;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        communicator = (Communicator)context;
+        yesNoDFInterface = (YesNoDFInterface)context;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class YesNoDF extends DialogFragment{
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //needs to know the player purchasing, property name, property price
-                communicator.performActions();
+                yesNoDFInterface.performActions();
 
             }
         });
@@ -45,7 +45,7 @@ public class YesNoDF extends DialogFragment{
         return builder.create();
     }
 
-    public interface Communicator {
+    public interface YesNoDFInterface {
         void performActions();
     }
 }

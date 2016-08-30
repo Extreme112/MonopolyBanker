@@ -6,16 +6,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SelectActionScreen extends AppCompatActivity implements EditTextDF.Communicator2{
+public class SelectActionScreen extends AppCompatActivity implements EditTextDF.EditTextDFInterface {
     public static final int CHLD_REQ2 = 2;
     //declarations
     Globals g;
