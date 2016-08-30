@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MonopV1</string>
+    <string name="player_1">Player 1</string>
+    <string name="mortgage">Mortgage</string>
+    <string name="purchase">Purchase</string>
+    <string name="collect">Collect</string>
+    <string name="confirm">Confirm</string>
+    <string name="pay">pay</string>
+    <string name="pay_to_bank">Pay To Bank</string>
+    <string name="pay_to_player">Pay To Player</string>
+</resources>
