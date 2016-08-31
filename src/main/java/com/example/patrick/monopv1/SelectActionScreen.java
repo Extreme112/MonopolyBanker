@@ -99,8 +99,11 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
     public void but_payToPlayer(View v){
         final ArrayList<String> playerNames = new ArrayList<String>();
         for (Player p : players){
-            playerNames.add(p.getName());
+            if (!p.getName().equals(currentPlayer.getName())){
+                playerNames.add(p.getName());
+            }
         }
+        playerNames.add("All Players");
         CharSequence[] cs = playerNames.toArray(new CharSequence[playerNames.size()]);
 
         String method = "payment";
@@ -117,9 +120,13 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
     public void but_collectFromPlayer(View v){
         final ArrayList<String> playerNames = new ArrayList<String>();
         for (Player p : players){
-            playerNames.add(p.getName());
+            if (!p.getName().equals(currentPlayer.getName())){
+                playerNames.add(p.getName());
+            }
         }
+        playerNames.add("All Players");
         CharSequence[] cs = playerNames.toArray(new CharSequence[playerNames.size()]);
+
 
         String method = "collect";
         Bundle args = new Bundle();
@@ -143,8 +150,46 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
 
     //EditTextDF
     @Override
-    public void performActions(int price, String method) {
-        if (price > currentPlayer.getCash() && method.equals("payment")){
+    public void performActions(int price, String method, boolean toAllPlayers) {
+
+        if (toAllPlayers && method.equals("payment")){
+            //pay all players here
+            int playerCounter = 0;
+            for (Player p : players){
+                if (!p.getName().equals(currentPlayer.getName())){
+                    playerCounter++;
+                }
+            }
+
+            if((playerCounter * price) > currentPlayer.getCash() && method.equals("payment")){
+                Toast.makeText(getBaseContext(),"Not enough cash to pay players.",Toast.LENGTH_SHORT).show();
+            } else {
+                currentPlayer.subtractFromCash(playerCounter * price);
+                for (Player p : players){
+                    if (!p.getName().equals(currentPlayer.getName())){
+                        p.addToCash(price);
+                        playerCounter++;
+                    }
+                }
+                g.setPlayers(players);
+                update();
+            }
+
+        } else if (toAllPlayers && method.equals("collect")){
+            int playerCounter = 0;
+            for (Player p : players){
+                if (p.getCash() >= price && !p.getName().equals(currentPlayer.getName())){
+                    p.subtractFromCash(price);
+                    playerCounter++;
+                } else if (!p.getName().equals(currentPlayer.getName())){
+                    Toast.makeText(getBaseContext(),"Cannot collect from player " + p.getName(),Toast.LENGTH_SHORT).show();
+                }
+            }
+            currentPlayer.addToCash(playerCounter * price);
+            g.setPlayers(players);
+            update();
+
+        } else if (price > currentPlayer.getCash() && method.equals("payment")){
             Toast.makeText(getBaseContext(),"Not enough cash.",Toast.LENGTH_SHORT).show();
         } else if (method.equals("payment")){
             currentPlayer.subtractFromCash(price);
@@ -189,20 +234,29 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
 
     //listDF
     @Override
-    public void performActions(String selectedPlayerID, String method) {
+    public void performActions(String selectedName, String method) {
         //find player to pay and from players and assign it to playerToPay based on selectedPlayerID
         //modify cash value of player with selectedPlayerId
-        Log.d("df","selectedPlayerID = " + selectedPlayerID);
-        for (Player p : players){
-            if (p.getId().equals(selectedPlayerID)){
-                playerToPay = p; break;
+        Log.d("df","selectedName = " + selectedName);
+        boolean toAllPlayers;
+
+        if (selectedName.equals("All Players")){
+            toAllPlayers = true;
+        } else {
+            for (Player p : players){
+                if (p.getName().equals(selectedName)){
+                    playerToPay = p; break;
+                }
             }
+            toAllPlayers = false;
         }
+
         //create second dialogue
         String title = "Amount";
         Bundle args = new Bundle();
         args.putString("title",title);
         args.putString("method",method);
+        args.putBoolean("toAllPlayers",toAllPlayers);
         EditTextDF editTextDF = new EditTextDF();
         editTextDF.setArguments(args);
         editTextDF.show(getFragmentManager(),"amountDF");

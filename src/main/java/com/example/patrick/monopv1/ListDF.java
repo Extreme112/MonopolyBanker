@@ -24,27 +24,31 @@ public class ListDF extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         Bundle args = getArguments();
-        CharSequence[] cs = args.getCharSequenceArray("cs");
+        final CharSequence[] cs = args.getCharSequenceArray("cs");
         String title = args.getString("title");
         final String method = args.getString("method");
-        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String selectedPlayerID = "P" + i;
-                listDFInterface.performActions(selectedPlayerID,method);
-
-
-            }
-        };
+//        DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                String selectedName = getString(i);
+//                listDFInterface.performActions(selectedName,method);
+//            }
+//        };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(title);
-        builder.setItems(cs, listener);
+        builder.setItems(cs, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                String selectedName = (String) cs[i];
+                listDFInterface.performActions(selectedName,method);
+            }
+        });
 
         return builder.create();
     }
 
     public interface ListDFInterface{
-        void performActions(String selectedPlayerID, String method);
+        void performActions(String selectedName, String method);
     }
 }

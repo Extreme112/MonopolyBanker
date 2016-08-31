@@ -28,6 +28,7 @@ public class EditTextDF extends DialogFragment{
         Bundle args = getArguments();
         String title = args.getString("title","");
         final String method = args.getString("method");
+        final boolean toAllPlayers = args.getBoolean("toAllPlayers");
         Log.d("df","method = " + method);
         Log.d("df","title = " + title);
 
@@ -41,7 +42,7 @@ public class EditTextDF extends DialogFragment{
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        editTextDFInterface.performActions(Integer.parseInt(editText.getText().toString()),method);
+                        editTextDFInterface.performActions(Integer.parseInt(editText.getText().toString()),method,toAllPlayers);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -53,6 +54,6 @@ public class EditTextDF extends DialogFragment{
     }
 
     public interface EditTextDFInterface {
-        void performActions(int price, String method);
+        void performActions(int price, String method, boolean toAllPlayers);
     }
 }
