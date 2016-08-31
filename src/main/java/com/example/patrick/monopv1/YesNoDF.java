@@ -22,7 +22,6 @@ public class YesNoDF extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
-        //String title = args.getString("title"," ");
         String message = args.getString("message"," ");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

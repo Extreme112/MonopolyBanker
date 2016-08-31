@@ -24,7 +24,6 @@ public class EditTextDF extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         Bundle args = getArguments();
         String title = args.getString("title","");
 
@@ -47,7 +46,6 @@ public class EditTextDF extends DialogFragment{
                     }
                 });
         return builder.create();
-
     }
 
     public interface EditTextDFInterface {

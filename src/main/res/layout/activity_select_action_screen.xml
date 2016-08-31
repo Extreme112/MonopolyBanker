@@ -83,7 +83,6 @@
         android:layout_height="wrap_content"
         android:text="@string/print_properties"
         android:id="@+id/but_printProperties"
-        android:onClick="but"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/but_collect" />
 

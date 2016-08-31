@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SelectActionScreen extends AppCompatActivity implements EditTextDF.EditTextDFInterface {
+public class SelectActionScreen extends AppCompatActivity implements EditTextDF.EditTextDFInterface,ListDF.ListDFInterface {
     public static final int CHLD_REQ2 = 2;
     //declarations
     Globals g;
@@ -47,6 +47,7 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         textView_playerName = (TextView) findViewById(R.id.textView_playerName);
         textView_playerName.setText(currentPlayer.getName());
 
+        //button for debugging purposes
         but_printProperties = (Button) findViewById(R.id.but_printProperties);
         but_printProperties.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,40 +106,18 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
     }
 
     public void but_payToPlayer(View v){
-        //button will pay 50 to player 2
         final ArrayList<String> playerNames = new ArrayList<String>();
         for (Player p : players){
             playerNames.add(p.getName());
         }
         CharSequence[] cs = playerNames.toArray(new CharSequence[playerNames.size()]);
-        //Create Yes/No Dialogue Box
-        final AlertDialog.Builder builder = new AlertDialog.Builder(SelectActionScreen.this);
-        builder.setTitle("Who to pay?");
-        //builder.setCancelable(true);
-        builder.setItems(
-                cs,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        String selectedPlayerID = "P" + id;
-                        //modify cash value of player with selectedPlayerId
-                        for (Player p : players){
-                            if (p.getId().equals(selectedPlayerID)){
-                                playerToPay = p; break;
-                            }
-                        }
-                        Log.d("myTag","Launching second dialog.");
-                        //create second dialogue
-                        String title = "Amount";
-                        Bundle args = new Bundle();
-                        args.putString("title",title);
-                        EditTextDF editTextDF = new EditTextDF();
-                        editTextDF.setArguments(args);
-                        editTextDF.show(getFragmentManager(),"amountDF");
-                    }
-                });
-        AlertDialog pickPlayer = builder.create();
-        pickPlayer.show();
 
+        Bundle args = new Bundle();
+        args.putCharSequenceArray("cs",cs);
+        args.putString("title","Pick Player");
+        ListDF listDF = new ListDF();
+        listDF.setArguments(args);
+        listDF.show(getFragmentManager(),"listDF");
     }
 
     public void update(){
@@ -150,7 +129,7 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         textView_cash.setText(String.valueOf(currentPlayer.getCash()));
     }
 
-
+    //EditTextDF
     @Override
     public void performActions(int price) {
         if (price > currentPlayer.getCash()){
@@ -174,5 +153,26 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
             g.setPlayers(players);
             update();
         }
+    }
+
+    //listDF
+    @Override
+    public void performActions(String selectedPlayerID) {
+        //find player to pay and from players and assign it to playerToPay based on selectedPlayerID
+        //modify cash value of player with selectedPlayerId
+        Log.d("df","selectedPlayerID = " + selectedPlayerID);
+        for (Player p : players){
+            if (p.getId().equals(selectedPlayerID)){
+                playerToPay = p; break;
+            }
+        }
+        //create second dialogue
+        String title = "Amount";
+        Bundle args = new Bundle();
+        args.putString("title",title);
+        EditTextDF editTextDF = new EditTextDF();
+        editTextDF.setArguments(args);
+        editTextDF.show(getFragmentManager(),"amountDF");
+
     }
 }
