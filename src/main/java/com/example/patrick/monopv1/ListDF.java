@@ -26,11 +26,12 @@ public class ListDF extends DialogFragment{
         Bundle args = getArguments();
         CharSequence[] cs = args.getCharSequenceArray("cs");
         String title = args.getString("title");
+        final String method = args.getString("method");
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 String selectedPlayerID = "P" + i;
-                listDFInterface.performActions(selectedPlayerID);
+                listDFInterface.performActions(selectedPlayerID,method);
 
 
             }
@@ -44,6 +45,6 @@ public class ListDF extends DialogFragment{
     }
 
     public interface ListDFInterface{
-        void performActions(String selectedPlayerID);
+        void performActions(String selectedPlayerID, String method);
     }
 }

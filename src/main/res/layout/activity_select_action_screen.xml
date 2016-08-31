@@ -46,14 +46,14 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/collect"
-        android:id="@+id/but_collect"
+        android:text="@string/collect_from_player"
+        android:id="@+id/but_collectPlayer"
         style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textColor="#536dfe"
-        android:layout_marginTop="36dp"
-        android:layout_below="@+id/but_payToBank"
-        android:layout_centerHorizontal="true" />
+        android:onClick="but_collectFromPlayer"
+        android:layout_below="@+id/but_mortgage"
+        android:layout_alignStart="@+id/but_mortgage" />
 
     <Button
         android:layout_width="wrap_content"
@@ -84,7 +84,8 @@
         android:text="@string/print_properties"
         android:id="@+id/but_printProperties"
         android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/but_collect" />
+        android:layout_alignStart="@+id/but_collectPlayer"
+        android:onClick="but_printProperties"/>
 
 </RelativeLayout>
 

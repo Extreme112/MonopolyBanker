@@ -47,15 +47,6 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         textView_playerName = (TextView) findViewById(R.id.textView_playerName);
         textView_playerName.setText(currentPlayer.getName());
 
-        //button for debugging purposes
-        but_printProperties = (Button) findViewById(R.id.but_printProperties);
-        but_printProperties.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                but_printProperties();
-            }
-        });
-
         Log.d("myTag",this.getClass().getSimpleName());
     }
 
@@ -75,7 +66,7 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void but_printProperties(){
+    public void but_printProperties(View v){
         ArrayList<PropertyCard> properties;
         properties = g.getProperties();
         for (PropertyCard p : properties){
@@ -112,9 +103,30 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         }
         CharSequence[] cs = playerNames.toArray(new CharSequence[playerNames.size()]);
 
+        String method = "payment";
         Bundle args = new Bundle();
         args.putCharSequenceArray("cs",cs);
         args.putString("title","Pick Player");
+        args.putString("method",method);
+
+        ListDF listDF = new ListDF();
+        listDF.setArguments(args);
+        listDF.show(getFragmentManager(),"listDF");
+    }
+
+    public void but_collectFromPlayer(View v){
+        final ArrayList<String> playerNames = new ArrayList<String>();
+        for (Player p : players){
+            playerNames.add(p.getName());
+        }
+        CharSequence[] cs = playerNames.toArray(new CharSequence[playerNames.size()]);
+
+        String method = "collect";
+        Bundle args = new Bundle();
+        args.putCharSequenceArray("cs",cs);
+        args.putString("title","Pick Player");
+        args.putString("method",method);
+
         ListDF listDF = new ListDF();
         listDF.setArguments(args);
         listDF.show(getFragmentManager(),"listDF");
@@ -131,10 +143,10 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
 
     //EditTextDF
     @Override
-    public void performActions(int price) {
-        if (price > currentPlayer.getCash()){
+    public void performActions(int price, String method) {
+        if (price > currentPlayer.getCash() && method.equals("payment")){
             Toast.makeText(getBaseContext(),"Not enough cash.",Toast.LENGTH_SHORT).show();
-        } else {
+        } else if (method.equals("payment")){
             currentPlayer.subtractFromCash(price);
             playerToPay.addToCash(price);
             //update current players
@@ -152,12 +164,32 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
             //update global g
             g.setPlayers(players);
             update();
+        } else if (method.equals("collect") && playerToPay.getCash() >= price){
+            currentPlayer.addToCash(price);
+            playerToPay.subtractFromCash(price);
+            //update current players
+            for (Player p : players) {
+                if (p == currentPlayer) {
+                    p = currentPlayer;
+                }
+            }
+            //update playerToPay
+            for (Player p : players) {
+                if (p == playerToPay) {
+                    p = playerToPay;
+                }
+            }
+            //update global g
+            g.setPlayers(players);
+            update();
+        } else {
+            Toast.makeText(getBaseContext(),"Player you are collecting from has insufficient funds.",Toast.LENGTH_SHORT).show();
         }
     }
 
     //listDF
     @Override
-    public void performActions(String selectedPlayerID) {
+    public void performActions(String selectedPlayerID, String method) {
         //find player to pay and from players and assign it to playerToPay based on selectedPlayerID
         //modify cash value of player with selectedPlayerId
         Log.d("df","selectedPlayerID = " + selectedPlayerID);
@@ -170,6 +202,7 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         String title = "Amount";
         Bundle args = new Bundle();
         args.putString("title",title);
+        args.putString("method",method);
         EditTextDF editTextDF = new EditTextDF();
         editTextDF.setArguments(args);
         editTextDF.show(getFragmentManager(),"amountDF");

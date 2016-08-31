@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -26,6 +27,9 @@ public class EditTextDF extends DialogFragment{
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
         String title = args.getString("title","");
+        final String method = args.getString("method");
+        Log.d("df","method = " + method);
+        Log.d("df","title = " + title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.amountopay, null);
@@ -37,7 +41,7 @@ public class EditTextDF extends DialogFragment{
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        editTextDFInterface.performActions(Integer.parseInt(editText.getText().toString()));
+                        editTextDFInterface.performActions(Integer.parseInt(editText.getText().toString()),method);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -49,6 +53,6 @@ public class EditTextDF extends DialogFragment{
     }
 
     public interface EditTextDFInterface {
-        void performActions(int price);
+        void performActions(int price, String method);
     }
 }
