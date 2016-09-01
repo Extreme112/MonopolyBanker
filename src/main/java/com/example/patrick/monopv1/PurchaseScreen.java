@@ -95,7 +95,7 @@ public class PurchaseScreen extends AppCompatActivity implements YesNoDF.YesNoDF
 
 
     @Override
-    public void performActions() {
+    public void performActions(String propertyName) {
         Log.d("myTag","performing--actions");
         //modify player value
         currentPlayer.subtractFromCash(purchasePrice);

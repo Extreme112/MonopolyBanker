@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class MortgageScreen extends AppCompatActivity implements YesNoDF.YesNoDFInterface {
     Globals g;
     ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
+    ArrayList<PropertyCard> ownedProperties = new ArrayList<PropertyCard>();
     ArrayList<Player> players = new ArrayList<Player>();
     Player currentPlayer;
     ListView listView;
@@ -33,7 +34,8 @@ public class MortgageScreen extends AppCompatActivity implements YesNoDF.YesNoDF
         final Bundle passedData = getIntent().getExtras();
         playerID = passedData.getString("playerID");
         g = (Globals)getApplication();
-        properties = g.getOwnedProperties(playerID);
+        properties = g.getProperties();
+        ownedProperties = g.getOwnedProperties(playerID);
         players = g.getPlayers();
         listView = (ListView) findViewById(R.id.listView);
         //get extras
@@ -46,15 +48,13 @@ public class MortgageScreen extends AppCompatActivity implements YesNoDF.YesNoDF
         }
         Log.d("la","MortgageScreen launched for " + currentPlayer.getName() + " with ID:" + currentPlayer.getId());
 
-        if(properties.size() > 0){
-            listView.setAdapter(new PMAdapter(this,properties));
+        if(ownedProperties.size() > 0){
+            listView.setAdapter(new PMAdapter(this,ownedProperties));
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                     propertyCard = (PropertyCard) listView.getItemAtPosition(i);
-                    Log.d("myTag",propertyCard.getPropertyName() + "clicked");
-
                     mortgagePrice = propertyCard.getMortgagePrice();
                     propertyName = propertyCard.getPropertyName();
 
@@ -85,17 +85,19 @@ public class MortgageScreen extends AppCompatActivity implements YesNoDF.YesNoDF
         }
     }
 
-    public void setOwnerToNone(String s){
+    public void setOwnerToNone(String propertyName){
+        Log.d("ms","setOwnerToNone called with ");
         for(PropertyCard p: properties){
-            if(p.getPropertyName().equals(s)){
+            if(p.getPropertyName().equals(propertyName)){
                 p.setOwnerToNone();
                 g.setProperties(properties);
+                break;
             }
         }
     }
 
     @Override
-    public void performActions() {
+    public void performActions(String propertyName) {
         //modify player cash
         currentPlayer.addToCash(mortgagePrice);
         //replace old currentPlayer with newly updated currentPlayer in players.
@@ -107,7 +109,7 @@ public class MortgageScreen extends AppCompatActivity implements YesNoDF.YesNoDF
         //update the globals with the new players list
         g.setPlayers(players);
         //modify and update the properties list using the setOwner function
-        setOwnerToNone(playerID);
+        setOwnerToNone(propertyName);
         //end
         setResult(RESULT_OK);
         finish();

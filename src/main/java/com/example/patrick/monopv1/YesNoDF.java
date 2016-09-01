@@ -22,7 +22,9 @@ public class YesNoDF extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle args = getArguments();
+
         String message = args.getString("message"," ");
+        final String propertyName = args.getString("propertyName");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true);
@@ -31,7 +33,7 @@ public class YesNoDF extends DialogFragment{
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //needs to know the player purchasing, property name, property price
-                yesNoDFInterface.performActions();
+                yesNoDFInterface.performActions(propertyName);
 
             }
         });
@@ -45,7 +47,7 @@ public class YesNoDF extends DialogFragment{
     }
 
     public interface YesNoDFInterface {
-        void performActions();
+        void performActions(String propertyName);
     }
 }
 
