@@ -1,6 +1,7 @@
 package com.example.patrick.monopv1;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,13 +40,18 @@ public class SelectActionScreen extends AppCompatActivity implements P2PAmountDF
                 currentPlayer = p;
         }
 
+        Typeface cashFont = Typeface.createFromAsset(getAssets(),"fonts/CashCurrency.ttf");
+
         textView_cash = (TextView) findViewById(R.id.text_cash);
+        textView_cash.setTypeface(cashFont);
         textView_cash.setText(String.valueOf(currentPlayer.getCash()));
 
         textView_playerName = (TextView) findViewById(R.id.textView_playerName);
         textView_playerName.setText(currentPlayer.getName());
 
         Log.d("myTag",this.getClass().getSimpleName());
+
+
     }
 
     @Override
