@@ -1,7 +1,5 @@
 package com.example.patrick.monopv1;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class SelectActionScreen extends AppCompatActivity implements EditTextDF.EditTextDFInterface,ListDF.ListDFInterface {
+public class SelectActionScreen extends AppCompatActivity implements P2PAmountDF.P2PEditTextInterface,ListDF.ListDFInterface,P2BAmountDF.P2BEditTextInterface {
     public static final int CHLD_REQ2 = 2;
     //declarations
     Globals g;
@@ -139,6 +137,27 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         listDF.show(getFragmentManager(),"listDF");
     }
 
+    public void but_payToBank(View v){
+        String method = "payment";
+        String title = "Amount";
+        Bundle args = new Bundle();
+        args.putString("method",method);
+        args.putString("title",title);
+        P2BAmountDF p2BAmountDF = new P2BAmountDF();
+        p2BAmountDF.setArguments(args);
+        p2BAmountDF.show(getFragmentManager(),"payToBank");
+    }
+
+    public void but_collectFromBank(View v){
+        String method = "collect";
+        String title = "Amount";
+        Bundle args = new Bundle();
+        args.putString("method",method);
+        args.putString("title",title);
+        P2BAmountDF p2BAmountDF = new P2BAmountDF();
+        p2BAmountDF.setArguments(args);
+        p2BAmountDF.show(getFragmentManager(),"collectFromBank");
+    }
     public void update(){
         players = g.getPlayers();
         for (Player p : players){
@@ -148,7 +167,7 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         textView_cash.setText(String.valueOf(currentPlayer.getCash()));
     }
 
-    //EditTextDF
+    //P2PAmountDF
     @Override
     public void performActions(int price, String method, boolean toAllPlayers) {
 
@@ -231,8 +250,7 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
             Toast.makeText(getBaseContext(),"Player you are collecting from has insufficient funds.",Toast.LENGTH_SHORT).show();
         }
     }
-
-    //listDF
+    //ListDF
     @Override
     public void performActions(String selectedName, String method) {
         //find player to pay and from players and assign it to playerToPay based on selectedPlayerID
@@ -257,9 +275,21 @@ public class SelectActionScreen extends AppCompatActivity implements EditTextDF.
         args.putString("title",title);
         args.putString("method",method);
         args.putBoolean("toAllPlayers",toAllPlayers);
-        EditTextDF editTextDF = new EditTextDF();
-        editTextDF.setArguments(args);
-        editTextDF.show(getFragmentManager(),"amountDF");
+        P2PAmountDF p2PAmountDF = new P2PAmountDF();
+        p2PAmountDF.setArguments(args);
+        p2PAmountDF.show(getFragmentManager(),"amountDF");
 
+    }
+    //P2BAmountDF
+    @Override
+    public void performActions(String method, int price) {
+        if (method.equals("payment") && currentPlayer.getCash() >= price) {
+            currentPlayer.subtractFromCash(price);
+        } else if (method.equals("collect")){
+            currentPlayer.addToCash(price);
+        }
+
+        update();
+        g.setPlayers(players);
     }
 }

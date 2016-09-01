@@ -28,9 +28,9 @@
         style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
         android:textSize="25sp"
         android:onClick="but_purchase"
+        android:layout_marginTop="36dp"
         android:layout_below="@+id/text_cash"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="62dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -59,14 +59,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pay_to_player"
-        android:id="@+id/but_payToBank"
+        android:id="@+id/but_payToPlayer"
         style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
         android:textSize="25sp"
         android:textColor="#536dfe"
         android:onClick="but_payToPlayer"
         android:layout_below="@+id/but_purchase"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/but_purchase" />
+        android:layout_alignEnd="@+id/but_purchase"
+        android:layout_alignBottom="@+id/but_collectPlayer" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,6 +87,34 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/but_collectPlayer"
         android:onClick="but_printProperties"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pay_to_bank"
+        android:id="@+id/but_payToBank"
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textSize="25sp"
+        android:textColor="#212121"
+        android:layout_below="@+id/but_payToPlayer"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/but_payToPlayer"
+        android:nestedScrollingEnabled="false"
+        android:layout_alignBottom="@+id/but_collectFromBank"
+        android:onClick="but_payToBank" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/collect_from_bank"
+        android:id="@+id/but_collectFromBank"
+        style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
+        android:textSize="23sp"
+        android:textColor="#212121"
+        android:nestedScrollingEnabled="false"
+        android:layout_below="@+id/but_collectPlayer"
+        android:layout_alignStart="@+id/but_collectPlayer"
+        android:onClick="but_collectFromBank" />
 
 </RelativeLayout>
 

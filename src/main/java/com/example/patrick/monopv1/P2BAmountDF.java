@@ -12,15 +12,14 @@ import android.view.View;
 import android.widget.EditText;
 
 /**
- * Created by Patrick on 8/30/2016.
+ * Created by Patrick on 9/1/2016.
  */
-public class EditTextDF extends DialogFragment{
-    private EditTextDFInterface editTextDFInterface;
-
+public class P2BAmountDF extends DialogFragment {
+    private P2BEditTextInterface p2BEditTextInterface;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        editTextDFInterface = (EditTextDFInterface)context;
+        p2BEditTextInterface = (P2BEditTextInterface) context;
     }
 
     @Override
@@ -28,9 +27,6 @@ public class EditTextDF extends DialogFragment{
         Bundle args = getArguments();
         String title = args.getString("title","");
         final String method = args.getString("method");
-        final boolean toAllPlayers = args.getBoolean("toAllPlayers");
-        Log.d("df","method = " + method);
-        Log.d("df","title = " + title);
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.amountopay, null);
@@ -42,7 +38,7 @@ public class EditTextDF extends DialogFragment{
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        editTextDFInterface.performActions(Integer.parseInt(editText.getText().toString()),method,toAllPlayers);
+                        p2BEditTextInterface.performActions(method, Integer.parseInt(editText.getText().toString()));
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -53,7 +49,7 @@ public class EditTextDF extends DialogFragment{
         return builder.create();
     }
 
-    public interface EditTextDFInterface {
-        void performActions(int price, String method, boolean toAllPlayers);
+    public interface P2BEditTextInterface{
+        void performActions(String method, int price);
     }
 }
