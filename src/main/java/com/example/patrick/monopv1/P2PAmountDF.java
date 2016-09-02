@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 /**
@@ -16,11 +17,16 @@ import android.widget.EditText;
  */
 public class P2PAmountDF extends DialogFragment{
     private P2PEditTextInterface p2PEditTextInterface;
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         p2PEditTextInterface = (P2PEditTextInterface)context;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
@@ -35,6 +41,8 @@ public class P2PAmountDF extends DialogFragment{
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.amountopay, null);
         final EditText editText = (EditText) v.findViewById(R.id.editText_amountToPay);
+        editText.requestFocus();
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(title);
