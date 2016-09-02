@@ -23,7 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotCancellableEditTextDF.NotCancellableEditTextDFInterface{
     public static final int CHLD_REQ1 = 1;
     Globals g;
     private ArrayList<Player> players = new ArrayList<Player>();
@@ -34,6 +34,57 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         g = (Globals)getApplication();
+
+        NotCancellableEditTextDF notCancellableEditTextDF = new NotCancellableEditTextDF();
+        notCancellableEditTextDF.show(getFragmentManager(),"EnterNumberOfPlayers");
+
+    }
+
+    @Override 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        players = g.getPlayers();
+        listView.setAdapter(new PlayerAdapter(this,players));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getBaseContext(),SelectActionScreen.class);
+
+                Player player = (Player) listView.getItemAtPosition(i);
+                //Send player ID
+                intent.putExtra("playerID",player.getId());
+                //Send players cash
+                intent.putExtra("playerCash",player.getCash());
+                startActivityForResult(intent,CHLD_REQ1);
+            }
+        });
+
+    }
+
+    private void updateAdapter(){
+        players = g.getPlayers();
+        listView.setAdapter(new PlayerAdapter(this,players));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(getBaseContext(),SelectActionScreen.class);
+
+                Player player = (Player) listView.getItemAtPosition(i);
+                //Send player ID
+                intent.putExtra("playerID",player.getId());
+                //Send players cash
+                intent.putExtra("playerCash",player.getCash());
+                startActivityForResult(intent,CHLD_REQ1);
+            }
+        });
+    }
+
+
+    @Override
+    public void performActions(int numberOfPlayers) {
+        g.setNumberOfPlayers(numberOfPlayers);
+        ///////////////////////////////////////////
         players = g.getPlayers();
         listView = (ListView) findViewById(R.id.mainActivity_listView);
 
@@ -95,48 +146,5 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        players = g.getPlayers();
-        listView.setAdapter(new PlayerAdapter(this,players));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getBaseContext(),SelectActionScreen.class);
-
-                Player player = (Player) listView.getItemAtPosition(i);
-                //Send player ID
-                intent.putExtra("playerID",player.getId());
-                //Send players cash
-                intent.putExtra("playerCash",player.getCash());
-                startActivityForResult(intent,CHLD_REQ1);
-            }
-        });
-
-    }
-
-    private void updateAdapter(){
-        players = g.getPlayers();
-        listView.setAdapter(new PlayerAdapter(this,players));
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getBaseContext(),SelectActionScreen.class);
-
-                Player player = (Player) listView.getItemAtPosition(i);
-                //Send player ID
-                intent.putExtra("playerID",player.getId());
-                //Send players cash
-                intent.putExtra("playerCash",player.getCash());
-                startActivityForResult(intent,CHLD_REQ1);
-            }
-        });
-    }
-
-
 }
