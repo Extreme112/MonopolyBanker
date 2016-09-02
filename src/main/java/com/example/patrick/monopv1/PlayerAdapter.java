@@ -1,6 +1,7 @@
 package com.example.patrick.monopv1;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,8 @@ public class PlayerAdapter extends BaseAdapter {
         TextView cash = (TextView) row.findViewById(R.id.player_adapter_textViewCash);
 
         name.setText(players.get(i).getName());
+        Typeface cashFont = Typeface.createFromAsset(context.getAssets(),"fonts/CashCurrency.ttf");
+        cash.setTypeface(cashFont);
         cash.setText(String.valueOf(players.get(i).getCash()));
         return row;
     }

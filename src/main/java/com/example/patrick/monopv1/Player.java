@@ -8,10 +8,10 @@ public class Player {
     private String id;
     private int cash;
 
-    Player(String init_name, String init_id, int init_cash){
-        name = init_name;
-        id = init_id;
-        cash = init_cash;
+    public Player(String name, String id, int cash) {
+        this.name = name;
+        this.id = id;
+        this.cash = cash;
     }
 
     public String getName(){

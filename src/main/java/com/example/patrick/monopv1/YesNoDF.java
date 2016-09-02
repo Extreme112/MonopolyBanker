@@ -10,24 +10,21 @@ import android.os.Bundle;
 /**
  * Created by Patrick on 8/29/2016.
  */
-public class PurchaseDialog extends DialogFragment{
-    private PurchaseDialogCommunicator purchaseDialogCommunicator;
+public class YesNoDF extends DialogFragment{
+    private YesNoDFInterface yesNoDFInterface;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        purchaseDialogCommunicator = (PurchaseDialogCommunicator)context;
+        yesNoDFInterface = (YesNoDFInterface)context;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         Bundle args = getArguments();
-        //String title = args.getString("title"," ");
-        String message = args.getString("message"," ");
-        final String propertyName  = args.getString("propertyName"," ");
-        final int purchasePrice = args.getInt("purchasePrice",0);
 
+        String message = args.getString("message"," ");
+        final String propertyName = args.getString("propertyName");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true);
@@ -35,9 +32,8 @@ public class PurchaseDialog extends DialogFragment{
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-
                 //needs to know the player purchasing, property name, property price
-                purchaseDialogCommunicator.performActions(purchasePrice,propertyName);
+                yesNoDFInterface.performActions(propertyName);
 
             }
         });
@@ -50,9 +46,8 @@ public class PurchaseDialog extends DialogFragment{
         return builder.create();
     }
 
-
-    public interface PurchaseDialogCommunicator{
-        void performActions(int purchasePrice, String propertyName);
+    public interface YesNoDFInterface {
+        void performActions(String propertyName);
     }
 }
 

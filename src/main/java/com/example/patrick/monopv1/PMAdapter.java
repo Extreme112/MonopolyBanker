@@ -1,6 +1,7 @@
 package com.example.patrick.monopv1;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,10 @@ public class PMAdapter extends BaseAdapter {
         TextView title = (TextView) row.findViewById(R.id.textView);
         ImageView img = (ImageView) row.findViewById(R.id.imageView);
 
-        title.setText(properties.get(i).getName());
+        Typeface propertyNameFont = Typeface.createFromAsset(context.getAssets(),"fonts/KabobExtraboldRegular.ttf");
+        title.setTypeface(propertyNameFont);
+
+        title.setText(properties.get(i).getPropertyName());
         img.setImageResource(properties.get(i).getImg());
         return row;
     }

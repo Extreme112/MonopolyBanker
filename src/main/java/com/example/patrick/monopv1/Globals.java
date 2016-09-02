@@ -9,7 +9,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -20,16 +19,14 @@ public class Globals extends Application{
     private ArrayList<PropertyCard> properties = new ArrayList<PropertyCard>();
     private int startingCash = 1500;
     private ArrayList<Player> players = new ArrayList<Player>();
+    private int numberOfPlayers;
 
     //functions
 
     @Override
     public void onCreate() {
-        for (int i = 0; i < 4; i++){
-            Player player = new Player("Player"+i,"P"+i,startingCash);
-            players.add(player);
-        }
-        //load propertie.json
+
+        //load properties.json
         super.onCreate();
         Log.d("myTag","Starting...");
         try {
@@ -53,7 +50,7 @@ public class Globals extends Application{
             }
 
             for(PropertyCard p : properties){
-                Log.d("Details-->", p.getName());
+                Log.d("Details-->", p.getPropertyName());
             }
         } catch (JSONException e){
             Log.d("myTag","Exception-called in onCreate");
@@ -67,7 +64,6 @@ public class Globals extends Application{
     public void setPlayers(ArrayList<Player> p){
         players = p;
     }
-
     public String loadJSONFromAsset() {
         Log.d("myTag","loadJSONFromAsset called");
         String json = null;
@@ -86,7 +82,6 @@ public class Globals extends Application{
         Log.d("myTag","returning json");
         return json;
     }
-
     public ArrayList<PropertyCard> getProperties(){
         return properties;
     }
@@ -94,7 +89,6 @@ public class Globals extends Application{
         properties = p;
         return true;
     }
-
     public  ArrayList<PropertyCard> getEmptyProperties(){
         ArrayList<PropertyCard> emptyProperties = new ArrayList<PropertyCard>();
         for (PropertyCard p : properties){
@@ -104,7 +98,6 @@ public class Globals extends Application{
         }
         return emptyProperties;
     }
-
     public ArrayList<PropertyCard> getOwnedProperties(String playerID){
         ArrayList<PropertyCard> ownedProperties = new ArrayList<PropertyCard>();
 
@@ -115,29 +108,30 @@ public class Globals extends Application{
         }
         return ownedProperties;
     }
-
     public String getOwnerOfProperty(String propertyName){
         for (PropertyCard p : properties){
-            if(p.getName().equals(propertyName)){
+            if(p.getPropertyName().equals(propertyName)){
                 return p.getOwner();
             }
         }
         return "none";
     }
-
-//    public String[] getProperyNames(){
-//        String[] stringArray = new String[properties.size()];
-//        for (int i = 0; i < properties.size(); i++){
-//            stringArray[i] = properties.get(i).getName();
-//        }
-//        return stringArray;
-//    }
-
     public int getStartingCash(){
         return startingCash;
     }
-
     public void setStartingCash(int startCash){
         startingCash = startCash;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+        for (int i = 0; i < numberOfPlayers; i++){
+            Player player = new Player("Player"+i,"P"+i,startingCash);
+            players.add(player);
+        }
     }
 }
