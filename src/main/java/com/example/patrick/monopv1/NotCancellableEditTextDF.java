@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 /**
@@ -19,6 +20,12 @@ public class NotCancellableEditTextDF extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         notCancellableEditTextDFInterface = (NotCancellableEditTextDFInterface) context;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override

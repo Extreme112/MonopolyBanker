@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements NotCancellableEdi
                             }
                         });
                 AlertDialog alertDialog = builder.create();
+                alertDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
                 alertDialog.show();
 
                 return true;

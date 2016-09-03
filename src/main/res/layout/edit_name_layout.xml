@@ -10,5 +10,6 @@
         android:text="Name"
         android:ems="10"
         android:id="@+id/editName_entry"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:selectAllOnFocus="true"/>
 </LinearLayout>
